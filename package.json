@@ -2,6 +2,10 @@
   "name": "market-pos-system",
   "version": "1.0.0",
   "description": "ZoTech Complete Supermarket POS & Management System",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "concurrently --kill-others \"npm run server\" \"npm run client\"",
     "server": "node server/index.js",
