@@ -1,0 +1,674 @@
+/* ==========================================================================
+   ZoTech Traditional / Classic Desktop POS Design System
+   Aesthetic: Classic Windows / Delphi / Traditional Accounting POS
+   No AI-Modern SaaS fluff, No Glassmorphism, Sharp & Dense & Functional
+   ========================================================================== */
+
+:root {
+  --bg-app: #eef2f6;
+  --bg-panel: #ffffff;
+  --bg-toolbar: #e2e8f0;
+  --bg-table-header: #dde3ea;
+  --bg-row-alt: #f8fafc;
+  --bg-row-hover: #e6edf5;
+  --bg-active: #d0dbe7;
+
+  --navy-dark: #121c27;
+  --navy-main: #1b2838;
+  --navy-light: #2c3e50;
+  --blue-classic: #234e70;
+  --blue-hover: #1b3d58;
+
+  --green-classic: #1b5e20;
+  --green-hover: #144618;
+  --red-classic: #b71c1c;
+  --red-hover: #8e1515;
+  --amber-classic: #b45309;
+
+  --border-color: #cbd5e1;
+  --border-dark: #94a3b8;
+  --border-input: #94a3b8;
+
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-light: #64748b;
+  --text-white: #ffffff;
+
+  --font-arabic: 'Cairo', Tahoma, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+
+  --shadow-desktop: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-raised: 1px 1px 3px rgba(0, 0, 0, 0.12);
+  --bevel-btn: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --bevel-btn-pressed: inset 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font-arabic);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-size: 13.5px;
+  line-height: 1.4;
+  direction: rtl;
+  text-align: right;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Typography & Badges
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--navy-dark);
+}
+
+.num-mono {
+  font-family: var(--font-mono);
+  direction: ltr;
+  font-weight: 600;
+}
+
+span.num-mono,
+strong.num-mono,
+div.num-mono,
+b.num-mono {
+  display: inline-block;
+}
+
+td.num-mono,
+th.num-mono {
+  display: table-cell !important;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.badge-success {
+  background-color: #e8f5e9;
+  color: var(--green-classic);
+  border-color: #a5d6a7;
+}
+
+.badge-danger {
+  background-color: #ffebee;
+  color: var(--red-classic);
+  border-color: #ef9a9a;
+}
+
+.badge-warning {
+  background-color: #fff8e1;
+  color: var(--amber-classic);
+  border-color: #ffe082;
+}
+
+.badge-info {
+  background-color: #e3f2fd;
+  color: var(--blue-classic);
+  border-color: #90caf9;
+}
+
+.badge-navy {
+  background-color: #e2e8f0;
+  color: var(--navy-dark);
+  border-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   Traditional Desktop Buttons
+   ========================================================================== */
+button, .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-family: var(--font-arabic);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: linear-gradient(180deg, #ffffff 0%, #ebeef2 100%);
+  color: var(--text-main);
+  box-shadow: var(--bevel-btn);
+  transition: background-color 0.1s, border-color 0.1s;
+  user-select: none;
+  white-space: nowrap;
+}
+
+button:hover, .btn:hover {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  border-color: #64748b;
+}
+
+button:active, .btn:active {
+  box-shadow: var(--bevel-btn-pressed);
+  background: #cbd5e1;
+}
+
+button:disabled, .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Specific button styles */
+.btn-primary {
+  background: linear-gradient(180deg, #243b55 0%, #141e30 100%);
+  color: #ffffff;
+  border-color: #0b131e;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, #2c4969 0%, #1b2838 100%);
+  border-color: #000000;
+}
+
+.btn-success {
+  background: linear-gradient(180deg, #2e7d32 0%, #1b5e20 100%);
+  color: #ffffff;
+  border-color: #0f3e13;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.btn-success:hover {
+  background: linear-gradient(180deg, #388e3c 0%, #1f6b24 100%);
+}
+
+.btn-danger {
+  background: linear-gradient(180deg, #c62828 0%, #b71c1c 100%);
+  color: #ffffff;
+  border-color: #7f1010;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(180deg, #d32f2f 0%, #9a1313 100%);
+}
+
+.btn-warning {
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  color: #ffffff;
+  border-color: #78350f;
+}
+
+.btn-sm {
+  padding: 3px 8px;
+  font-size: 11.5px;
+}
+
+.btn-lg {
+  padding: 8px 18px;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Inputs & Form Controls
+   ========================================================================== */
+input, select, textarea {
+  font-family: var(--font-arabic);
+  font-size: 13px;
+  padding: 5px 8px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-xs);
+  background-color: #ffffff;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--blue-classic);
+  box-shadow: 0 0 0 2px rgba(35, 78, 112, 0.2);
+}
+
+input[type="number"] {
+  font-family: var(--font-mono);
+  direction: ltr;
+  text-align: right;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy-dark);
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row > * {
+  flex: 1;
+}
+
+/* ==========================================================================
+   Classic Dense Tables
+   ========================================================================== */
+.table-container {
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  overflow: auto;
+  position: relative;
+}
+
+table.dense-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  font-size: 12.5px;
+  text-align: right;
+}
+
+table.dense-table th {
+  display: table-cell !important;
+  background-color: var(--bg-table-header);
+  color: var(--navy-dark);
+  font-weight: 700;
+  padding: 7px 10px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 2px solid var(--border-dark);
+  border-left: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+table.dense-table td {
+  display: table-cell !important;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  white-space: nowrap;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+table.dense-table th:first-child,
+table.dense-table td:first-child {
+  border-right: 1px solid var(--border-color);
+}
+
+/* Column width helpers for dense tables */
+table.dense-table th.col-id,
+table.dense-table td.col-id {
+  width: 45px;
+  min-width: 45px;
+  text-align: center;
+}
+
+table.dense-table th.col-actions,
+table.dense-table td.col-actions {
+  min-width: 160px;
+  text-align: center;
+}
+
+table.dense-table th.col-amount,
+table.dense-table td.col-amount {
+  min-width: 110px;
+}
+
+table.dense-table th.col-date,
+table.dense-table td.col-date {
+  min-width: 100px;
+}
+
+table.dense-table th.col-status,
+table.dense-table td.col-status {
+  min-width: 90px;
+}
+
+table.dense-table tbody tr:nth-child(even) {
+  background-color: var(--bg-row-alt);
+}
+
+table.dense-table tbody tr:hover {
+  background-color: var(--bg-row-hover);
+}
+
+table.dense-table tbody tr.selected {
+  background-color: var(--bg-active);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Panels, Toolbars & Layout
+   ========================================================================== */
+.pos-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-desktop);
+  display: flex;
+  flex-direction: column;
+}
+
+.pos-panel-header {
+  background: var(--bg-toolbar);
+  border-bottom: 1px solid var(--border-color);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  color: var(--navy-dark);
+  font-size: 13px;
+}
+
+.pos-toolbar {
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--border-color);
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Modals & Popups
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-content {
+  background: #ffffff;
+  border: 2px solid var(--navy-dark);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  background: var(--navy-main);
+  color: #ffffff;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.modal-header button.close-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: none;
+  padding: 0 4px;
+}
+
+.modal-body {
+  padding: 14px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  background: var(--bg-toolbar);
+  border-top: 1px solid var(--border-color);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Keyboard Shortcuts Bar
+   ========================================================================== */
+.shortcuts-bar {
+  background: #1e293b;
+  color: #cbd5e1;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11.5px;
+  overflow-x: auto;
+  border-top: 1px solid #334155;
+  white-space: nowrap;
+}
+
+.shortcut-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.key-badge {
+  background: #0f172a;
+  border: 1px solid #475569;
+  border-radius: 2px;
+  padding: 1px 5px;
+  color: #38bdf8;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+}
+
+/* ==========================================================================
+   ZoTech Footer
+   ========================================================================== */
+.zotech-footer {
+  background: #111a24;
+  color: #94a3b8;
+  border-top: 1px solid #1e293b;
+  padding: 4px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  flex-shrink: 0;
+  user-select: none;
+  z-index: 10;
+}
+
+.zotech-footer .brand {
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.zotech-footer .contact-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.zotech-footer a {
+  color: #38bdf8;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.zotech-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Thermal & A4 Receipt Styles
+   ========================================================================== */
+.receipt-wrapper {
+  background: #ffffff;
+  color: #000000;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  line-height: 1.35;
+  padding: 12px;
+  margin: 0 auto;
+}
+
+.receipt-wrapper.receipt-80mm {
+  width: 78mm;
+  max-width: 100%;
+}
+
+.receipt-wrapper.receipt-58mm {
+  width: 54mm;
+  max-width: 100%;
+  font-size: 11px;
+}
+
+.receipt-wrapper.receipt-a4 {
+  width: 100%;
+  font-family: var(--font-arabic);
+}
+
+.receipt-header {
+  text-align: center;
+  border-bottom: 1px dashed #000;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.receipt-header h2 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 2px;
+  color: #000;
+}
+
+.receipt-divider {
+  border-top: 1px dashed #000;
+  margin: 6px 0;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0;
+  font-size: 11.5px;
+}
+
+.receipt-table th {
+  border-bottom: 1px dashed #000;
+  padding: 4px 0;
+  text-align: right;
+}
+
+.receipt-table td {
+  padding: 3px 0;
+}
+
+.receipt-table th:last-child,
+.receipt-table td:last-child {
+  text-align: left;
+}
+
+.receipt-footer {
+  text-align: center;
+  margin-top: 10px;
+  border-top: 1px dashed #000;
+  padding-top: 8px;
+  font-size: 11px;
+}
+
+/* ==========================================================================
+   Print Media Query
+   ========================================================================== */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Hide app navigation, sidebar, topbar, buttons, footers */
+  .no-print,
+  .app-sidebar,
+  .app-topbar,
+  .shortcuts-bar,
+  .zotech-footer,
+  .btn,
+  button,
+  .modal-header button,
+  .modal-footer {
+    display: none !important;
+  }
+
+  .modal-overlay {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  .modal-content {
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .printable-area {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  @page {
+    margin: 4mm;
+  }
+}
