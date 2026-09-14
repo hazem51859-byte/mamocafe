@@ -4,3 +4,11 @@ dist
 *.db-shm
 *.db-wal
 .DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+**/.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
