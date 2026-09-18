@@ -1,0 +1,6 @@
+@echo off
+echo Replacing cache with Node v22...
+copy /B /Y "Z:\Downloads\Market\ZoTech_Market_POS_Windows\runtime\node.exe" "Z:\Downloads\Market\tools\cache\node-win-x64.exe"
+echo Verifying...
+"Z:\Downloads\Market\tools\cache\node-win-x64.exe" --version
+echo Done!

@@ -8,15 +8,28 @@ const ROOT_DIR = path.join(__dirname, '..');
 const OUTPUT_DIR = path.join(ROOT_DIR, 'ZoTech_Market_POS_Windows');
 const CACHE_DIR = path.join(__dirname, 'cache');
 const WIN_NODE_CACHE = path.join(CACHE_DIR, 'node-win-x64.exe');
-const WIN_NODE_URL = 'https://nodejs.org/dist/v20.18.0/win-x64/node.exe';
+const WIN_NODE_URL = 'https://nodejs.org/dist/v22.13.1/win-x64/node.exe';
+
+// Use node.exe directly to run vite build - no npm needed
+const NODE_EXE = `"${process.execPath}"`;
+const VITE_BIN = path.join(ROOT_DIR, 'client', 'node_modules', 'vite', 'bin', 'vite.js');
 
 console.log('\n=============================================================');
 console.log('  🚀 بدء تجهيز وتشفير حزمة نظام ZoTech POS لنظام Windows');
 console.log('=============================================================\n');
 
-// 1. Build Client
+// 1. Build Client - use pre-built dist if available, otherwise try to build
 console.log('📦 1/6 بناء الواجهة الأمامية وتجهيز ملفات الإنتاج...');
-execSync('npm run build --prefix client', { stdio: 'inherit', cwd: ROOT_DIR });
+const CLIENT_DIST = path.join(ROOT_DIR, 'client', 'dist');
+if (fs.existsSync(CLIENT_DIST) && fs.existsSync(path.join(CLIENT_DIST, 'index.html'))) {
+  console.log('⚡ استخدام client/dist المبني مسبقاً...');
+} else {
+  // Try to build using vite directly
+  if (!fs.existsSync(VITE_BIN)) {
+    throw new Error('client/dist غير موجود ولا يمكن بناء الواجهة. شغّل: npm run build --prefix client أولاً.');
+  }
+  execSync(`${NODE_EXE} "${VITE_BIN}" build`, { stdio: 'inherit', cwd: path.join(ROOT_DIR, 'client') });
+}
 
 // 2. Download or use cached Windows node.exe
 if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR, { recursive: true });

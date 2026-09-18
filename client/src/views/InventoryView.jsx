@@ -396,7 +396,7 @@ export default function InventoryView() {
       {/* Stock In Modal */}
       {showStockInModal && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ width: '450px' }}>
+          <div className="modal-content" style={{ width: '560px', maxWidth: '90vw' }}>
             <div className="modal-header">
               <span>إذن توريد وإضافة مخزني (Stock In)</span>
               <button className="close-btn" onClick={() => setShowStockInModal(false)}><X size={18} /></button>
@@ -447,7 +447,7 @@ export default function InventoryView() {
       {/* Stock Out Modal */}
       {showStockOutModal && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ width: '450px' }}>
+          <div className="modal-content" style={{ width: '560px', maxWidth: '90vw' }}>
             <div className="modal-header">
               <span>إذن صرف وتوالف (Stock Out)</span>
               <button className="close-btn" onClick={() => setShowStockOutModal(false)}><X size={18} /></button>

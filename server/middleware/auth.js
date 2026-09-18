@@ -11,23 +11,24 @@ function authenticateToken(req, res, next) {
     return res.status(401).json({ error: 'غير مصرح: يجب تسجيل الدخول أولاً' });
   }
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
+  jwt.verify(token, JWT_SECRET, async (err, user) => {
     if (err) {
       return res.status(403).json({ error: 'انتهت صلاحية الجلسة، يرجى تسجيل الدخول مجدداً' });
     }
 
-    // Refresh user info from DB to check if disabled
-    const dbUser = db.prepare(`
-      SELECT u.id, u.username, u.full_name, u.role_id, u.is_active, u.custom_permissions,
-             r.name as role_name, r.display_name as role_display, r.permissions as role_permissions
-      FROM users u
-      JOIN roles r ON u.role_id = r.id
-      WHERE u.id = ?
-    `).get(user.id);
+    try {
+      // Refresh user info from DB to check if disabled
+      const dbUser = await db.prepare(`
+        SELECT u.id, u.username, u.full_name, u.role_id, u.is_active, u.custom_permissions,
+               r.name as role_name, r.display_name as role_display, r.permissions as role_permissions
+        FROM users u
+        JOIN roles r ON u.role_id = r.id
+        WHERE u.id = ?
+      `).get(user.id);
 
-    if (!dbUser || !dbUser.is_active) {
-      return res.status(403).json({ error: 'تم تعطيل هذا الحساب أو أنه لم يعد موجوداً' });
-    }
+      if (!dbUser || !dbUser.is_active) {
+        return res.status(403).json({ error: 'تم تعطيل هذا الحساب أو أنه لم يعد موجوداً' });
+      }
 
     let permissions = [];
     try {
@@ -48,6 +49,10 @@ function authenticateToken(req, res, next) {
     };
 
     next();
+    } catch (err) {
+      console.error('Error verifying user:', err);
+      return res.status(500).json({ error: 'خطأ في التحقق من المستخدم' });
+    }
   });
 }
 

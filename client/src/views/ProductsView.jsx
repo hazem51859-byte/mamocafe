@@ -10,7 +10,11 @@ import {
   RefreshCw,
   X,
   Check,
-  Filter
+  Filter,
+  Coins,
+  ShoppingCart,
+  TrendingUp,
+  Boxes
 } from 'lucide-react';
 import { api } from '../services/api';
 import DataTable from '../components/DataTable';
@@ -24,6 +28,7 @@ export default function ProductsView({ currentUser }) {
   const [categories, setCategories] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [brands, setBrands] = useState([]);
+  const [inventoryStats, setInventoryStats] = useState(null);
 
   // Modals
   const [showAddEditModal, setShowAddEditModal] = useState(false);
@@ -65,6 +70,25 @@ export default function ProductsView({ currentUser }) {
       });
       setProducts(res.products || []);
       setTotal(res.total || 0);
+
+      if (res.inventoryStats) {
+        setInventoryStats(res.inventoryStats);
+      } else {
+        const prods = res.products || [];
+        const costVal = prods.reduce((acc, p) => acc + (p.stock_quantity > 0 ? Number(p.stock_quantity) * Number(p.purchase_price) : 0), 0);
+        const sellVal = prods.reduce((acc, p) => acc + (p.stock_quantity > 0 ? Number(p.stock_quantity) * Number(p.selling_price) : 0), 0);
+        const profit = sellVal - costVal;
+        const margin = sellVal > 0 ? (profit / sellVal) * 100 : 0;
+        setInventoryStats({
+          totalProducts: res.total || prods.length,
+          totalStockQty: prods.reduce((acc, p) => acc + Number(p.stock_quantity || 0), 0),
+          totalCostValue: costVal,
+          totalSellingValue: sellVal,
+          expectedProfit: profit,
+          profitMargin: margin,
+          isFiltered: Boolean(search || selectedCategory)
+        });
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -348,14 +372,253 @@ export default function ProductsView({ currentUser }) {
     ? columns.filter(c => c.key !== 'actions')
     : columns;
 
+  const isCashier = currentUser?.role === 'cashier';
+
+  const formatMoney = (val) => {
+    const num = Number(val) || 0;
+    return `${num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م`;
+  };
+
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', padding: '10px' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', padding: '10px', gap: '8px' }}>
+      {/* =========================================================================
+          Top Inventory Financial Summary Cards
+         ========================================================================= */}
+      {inventoryStats && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          {/* Header indicator when filtering */}
+          {inventoryStats.isFiltered && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                background: '#fef3c7',
+                border: '1px solid #fde68a',
+                padding: '4px 10px',
+                borderRadius: '5px',
+                fontSize: '11px',
+                color: '#92400e'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Filter size={13} />
+                <span>
+                  <strong>تنبيه:</strong> الأرقام التالية محسوبة فقط للأصناف المطابقة للتصفية الحالية
+                  {selectedCategory ? ` (${categories.find(c => String(c.id) === String(selectedCategory))?.name || 'تصنيف محدد'})` : ''}
+                  {search ? ` (بحث: "${search}")` : ''}
+                </span>
+              </div>
+              <button
+                className="btn btn-sm"
+                style={{ padding: '1px 8px', fontSize: '10px', background: '#ffffff', borderColor: '#d97706', color: '#92400e' }}
+                onClick={() => { setSearch(''); setSelectedCategory(''); }}
+              >
+                إلغاء التصفية وعرض إجمالي المخزن بالكامل
+              </button>
+            </div>
+          )}
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: isCashier ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gap: '8px'
+            }}
+          >
+            {/* 1. Total Cost Value (Purchase Price) */}
+            {!isCashier && (
+              <div
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
+                  borderTop: '3px solid #2563eb',
+                  borderRadius: '5px',
+                  padding: '9px 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '11px', fontWeight: 600, color: '#475569', marginBottom: '2px' }}>
+                    إجمالي سعر الشراء (التكلفة)
+                  </div>
+                  <div className="num-mono" style={{ fontSize: '17px', fontWeight: 800, color: '#1e40af', letterSpacing: '-0.3px' }}>
+                    {formatMoney(inventoryStats.totalCostValue)}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>
+                    تكلفة شراء البضاعة الحالية بالجملة
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '8px',
+                    background: '#eff6ff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#2563eb'
+                  }}
+                >
+                  <Coins size={19} />
+                </div>
+              </div>
+            )}
+
+            {/* 2. Total Selling Value (Retail Price) */}
+            <div
+              style={{
+                background: '#ffffff',
+                border: '1px solid #cbd5e1',
+                borderTop: '3px solid #059669',
+                borderRadius: '5px',
+                padding: '9px 12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div>
+                <div style={{ fontSize: '11px', fontWeight: 600, color: '#475569', marginBottom: '2px' }}>
+                  إجمالي سعر البيع (القيمة السوقية)
+                </div>
+                <div className="num-mono" style={{ fontSize: '17px', fontWeight: 800, color: '#065f46', letterSpacing: '-0.3px' }}>
+                  {formatMoney(inventoryStats.totalSellingValue)}
+                </div>
+                <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>
+                  إجمالي القيمة بسعر بيع الرف للمستهلك
+                </div>
+              </div>
+              <div
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '8px',
+                  background: '#ecfdf5',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#059669'
+                }}
+              >
+                <ShoppingCart size={19} />
+              </div>
+            </div>
+
+            {/* 3. Expected Profit & Margin */}
+            {!isCashier && (
+              <div
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
+                  borderTop: '3px solid #7c3aed',
+                  borderRadius: '5px',
+                  padding: '9px 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '2px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 600, color: '#475569' }}>
+                      صافي الأرباح المتوقعة
+                    </span>
+                    <span
+                      className="num-mono"
+                      style={{
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        background: '#f5f3ff',
+                        color: '#7c3aed',
+                        padding: '1px 5px',
+                        borderRadius: '4px',
+                        border: '1px solid #ddd6fe'
+                      }}
+                    >
+                      %{inventoryStats.profitMargin?.toFixed(1) || 0} هامش
+                    </span>
+                  </div>
+                  <div className="num-mono" style={{ fontSize: '17px', fontWeight: 800, color: '#5b21b6', letterSpacing: '-0.3px' }}>
+                    {formatMoney(inventoryStats.expectedProfit)}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>
+                    الربح المقدر عند بيع كل الكميات المتوفرة
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '8px',
+                    background: '#f5f3ff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#7c3aed'
+                  }}
+                >
+                  <TrendingUp size={19} />
+                </div>
+              </div>
+            )}
+
+            {/* 4. Total Stock Volume & Count */}
+            <div
+              style={{
+                background: '#ffffff',
+                border: '1px solid #cbd5e1',
+                borderTop: '3px solid #d97706',
+                borderRadius: '5px',
+                padding: '9px 12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div>
+                <div style={{ fontSize: '11px', fontWeight: 600, color: '#475569', marginBottom: '2px' }}>
+                  حجم المخزون المتوفر
+                </div>
+                <div className="num-mono" style={{ fontSize: '17px', fontWeight: 800, color: '#92400e', letterSpacing: '-0.3px' }}>
+                  {Number(inventoryStats.totalStockQty || 0).toLocaleString('en-US')} <span style={{ fontSize: '11px', fontWeight: 600 }}>وحدة</span>
+                </div>
+                <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>
+                  موزعة على {inventoryStats.totalProducts || 0} صنف مسجل
+                </div>
+              </div>
+              <div
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '8px',
+                  background: '#fffbeb',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#d97706'
+                }}
+              >
+                <Boxes size={19} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Top Toolbar */}
       <div
         className="pos-toolbar"
         style={{
           background: '#ffffff',
-          marginBottom: '8px',
+          marginBottom: '0px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'

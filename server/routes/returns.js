@@ -5,57 +5,67 @@ const { authenticateToken, requirePermission } = require('../middleware/auth');
 const { logAudit } = require('../middleware/audit');
 
 // GET /api/returns - List returns
-router.get('/', authenticateToken, (req, res) => {
-  const returns = db.prepare(`
-    SELECT r.*, u.full_name as cashier_name, c.name as customer_name,
-           (SELECT COUNT(*) FROM return_items WHERE return_id = r.id) as items_count
-    FROM returns r
-    JOIN users u ON r.cashier_id = u.id
-    LEFT JOIN customers c ON r.customer_id = c.id
-    ORDER BY r.id DESC
-    LIMIT 100
-  `).all();
+router.get('/', authenticateToken, async (req, res) => {
+  try {
+    const returns = await db.prepare(`
+      SELECT r.*, u.full_name as cashier_name, c.name as customer_name,
+             (SELECT COUNT(*) FROM return_items WHERE return_id = r.id) as items_count
+      FROM returns r
+      JOIN users u ON r.cashier_id = u.id
+      LEFT JOIN customers c ON r.customer_id = c.id
+      ORDER BY r.id DESC
+      LIMIT 100
+    `).all();
 
-  res.json(returns);
+    res.json(returns);
+  } catch (err) {
+    console.error('Error listing returns:', err);
+    res.status(500).json({ error: 'خطأ في جلب المرتجعات' });
+  }
 });
 
 // GET /api/returns/invoice-lookup/:invoiceNumber - Find sale to return
-router.get('/invoice-lookup/:invoiceNumber', authenticateToken, (req, res) => {
-  const inv = req.params.invoiceNumber.trim();
-  const sale = db.prepare(`
-    SELECT s.*, u.full_name as cashier_name, c.name as customer_name
-    FROM sales s
-    JOIN users u ON s.cashier_id = u.id
-    LEFT JOIN customers c ON s.customer_id = c.id
-    WHERE s.invoice_number = ?
-  `).get(inv);
+router.get('/invoice-lookup/:invoiceNumber', authenticateToken, async (req, res) => {
+  try {
+    const inv = req.params.invoiceNumber.trim();
+    const sale = await db.prepare(`
+      SELECT s.*, u.full_name as cashier_name, c.name as customer_name
+      FROM sales s
+      JOIN users u ON s.cashier_id = u.id
+      LEFT JOIN customers c ON s.customer_id = c.id
+      WHERE s.invoice_number = ?
+    `).get(inv);
 
-  if (!sale) {
-    return res.status(404).json({ error: 'لم يتم العثور على فاتورة بهذا الرقم' });
+    if (!sale) {
+      return res.status(404).json({ error: 'لم يتم العثور على فاتورة بهذا الرقم' });
+    }
+
+    const items = await db.prepare(`
+      SELECT si.*,
+             COALESCE((
+               SELECT SUM(ri.quantity)
+               FROM return_items ri
+               JOIN returns r ON ri.return_id = r.id
+               WHERE r.sale_id = si.sale_id AND ri.product_id = si.product_id
+             ), 0) as already_returned_qty
+      FROM sale_items si
+      WHERE si.sale_id = ?
+    `).all(sale.id);
+
+    sale.items = items.map(i => ({
+      ...i,
+      available_to_return: Math.max(0, parseFloat(i.quantity) - parseFloat(i.already_returned_qty || 0))
+    }));
+
+    res.json(sale);
+  } catch (err) {
+    console.error('Error in invoice lookup:', err);
+    res.status(500).json({ error: 'خطأ في الاستعلام عن الفاتورة' });
   }
-
-  const items = db.prepare(`
-    SELECT si.*,
-           COALESCE((
-             SELECT SUM(ri.quantity)
-             FROM return_items ri
-             JOIN returns r ON ri.return_id = r.id
-             WHERE r.sale_id = si.sale_id AND ri.product_id = si.product_id
-           ), 0) as already_returned_qty
-    FROM sale_items si
-    WHERE si.sale_id = ?
-  `).all(sale.id);
-
-  sale.items = items.map(i => ({
-    ...i,
-    available_to_return: Math.max(0, i.quantity - i.already_returned_qty)
-  }));
-
-  res.json(sale);
 });
 
 // POST /api/returns - Process sale return
-router.post('/', authenticateToken, requirePermission('sales_returns'), (req, res) => {
+router.post('/', authenticateToken, requirePermission('sales_returns'), async (req, res) => {
   const {
     saleId,
     invoiceNumber,
@@ -68,17 +78,17 @@ router.post('/', authenticateToken, requirePermission('sales_returns'), (req, re
     return res.status(400).json({ error: 'يرجى تحديد الأصناف المراد إرجاعها والكميات' });
   }
 
-  // Active shift check
-  let activeShift = db.prepare(`
-    SELECT * FROM shifts WHERE cashier_id = ? AND status = 'open' ORDER BY id DESC LIMIT 1
-  `).get(req.user.id);
-  if (!activeShift) {
-    activeShift = db.prepare(`SELECT * FROM shifts WHERE status = 'open' ORDER BY id DESC LIMIT 1`).get();
-  }
-  const shiftId = activeShift ? activeShift.id : null;
-
   try {
-    const returnTx = db.transaction(() => {
+    // Active shift check
+    let activeShift = await db.prepare(`
+      SELECT * FROM shifts WHERE cashier_id = ? AND status = 'open' ORDER BY id DESC LIMIT 1
+    `).get(req.user.id);
+    if (!activeShift) {
+      activeShift = await db.prepare(`SELECT * FROM shifts WHERE status = 'open' ORDER BY id DESC LIMIT 1`).get();
+    }
+    const shiftId = activeShift ? activeShift.id : null;
+
+    const result = await db.transaction(async (tx) => {
       let totalRefund = 0;
       const validItems = [];
 
@@ -104,26 +114,27 @@ router.post('/', authenticateToken, requirePermission('sales_returns'), (req, re
 
       // Generate Return number: RET-YYMMDD-XXXX
       const todayStr = new Date().toISOString().slice(2, 10).replace(/-/g, '');
-      const countToday = db.prepare(`
+      const countRes = await tx.prepare(`
         SELECT COUNT(*) as count FROM returns WHERE return_number LIKE ?
-      `).get(`RET-${todayStr}-%`).count + 1;
+      `).get(`RET-${todayStr}-%`);
+      const countToday = (countRes ? parseInt(countRes.count) : 0) + 1;
       const returnNumber = `RET-${todayStr}-${String(countToday).padStart(4, '0')}`;
 
       // Get sale details for customer
       let customerId = null;
       if (saleId) {
-        const s = db.prepare('SELECT customer_id FROM sales WHERE id = ?').get(saleId);
+        const s = await tx.prepare('SELECT customer_id FROM sales WHERE id = ?').get(saleId);
         if (s) customerId = s.customer_id;
       }
 
       // Insert into returns
-      const insertRet = db.prepare(`
+      const insertRet = tx.prepare(`
         INSERT INTO returns (
           return_number, sale_id, invoice_number, shift_id, cashier_id, customer_id, total_refund, refund_method, reason
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
-      const retRes = insertRet.run(
+      const retRes = await insertRet.run(
         returnNumber,
         saleId || null,
         invoiceNumber || null,
@@ -137,25 +148,25 @@ router.post('/', authenticateToken, requirePermission('sales_returns'), (req, re
       const returnId = retRes.lastInsertRowid;
 
       // Insert return items, restore stock, and log inventory movement
-      const insertRetItem = db.prepare(`
+      const insertRetItem = tx.prepare(`
         INSERT INTO return_items (return_id, product_id, product_name, quantity, unit_price, total)
         VALUES (?, ?, ?, ?, ?, ?)
       `);
-      const updateStock = db.prepare('UPDATE products SET stock_quantity = stock_quantity + ? WHERE id = ?');
-      const insertMovement = db.prepare(`
+      const updateStock = tx.prepare('UPDATE products SET stock_quantity = stock_quantity + ? WHERE id = ?');
+      const insertMovement = tx.prepare(`
         INSERT INTO inventory_movements (product_id, movement_type, quantity, reference_type, reference_id, notes, user_id)
         VALUES (?, 'return', ?, 'return', ?, ?, ?)
       `);
 
       for (const item of validItems) {
-        insertRetItem.run(returnId, item.productId, item.name, item.quantity, item.unitPrice, item.lineTotal);
-        updateStock.run(item.quantity, item.productId);
-        insertMovement.run(item.productId, item.quantity, returnId, `مرتجع مبيعات ${returnNumber} للفاتورة ${invoiceNumber}`, req.user.id);
+        await insertRetItem.run(returnId, item.productId, item.name, item.quantity, item.unitPrice, item.lineTotal);
+        await updateStock.run(item.quantity, item.productId);
+        await insertMovement.run(item.productId, item.quantity, returnId, `مرتجع مبيعات ${returnNumber} للفاتورة ${invoiceNumber}`, req.user.id);
       }
 
       // If refunded as credit to customer account
       if (refundMethod === 'credit' && customerId) {
-        db.prepare('UPDATE customers SET balance = balance - ? WHERE id = ?').run(totalRefund, customerId);
+        await tx.prepare('UPDATE customers SET balance = balance - ? WHERE id = ?').run(totalRefund, customerId);
       }
 
       logAudit(
@@ -169,7 +180,6 @@ router.post('/', authenticateToken, requirePermission('sales_returns'), (req, re
       return { returnNumber, totalRefund };
     });
 
-    const result = returnTx();
     res.json({
       success: true,
       message: `تم تسجيل المرتجع ${result.returnNumber} بنجاح وإعادة الكميات للمخزن`,

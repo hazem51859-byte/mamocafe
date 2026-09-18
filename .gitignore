@@ -1,13 +1,26 @@
+# Dependencies
 node_modules
+*/node_modules
+
+# Build artifacts
 dist
+client/dist
+ZoTech_Market_POS_Windows
+tools/cache
+
+# Environment & database
 .env
+server/.env
+*.env
+*.db
 *.db-shm
 *.db-wal
+*.sqlite
+*.sqlite3
+
+# Licenses & OS generated
+*.lic
 .DS_Store
-**/.DS_Store
-.AppleDouble
-.LSOverride
-Thumbs.db
 **/.DS_Store
 .AppleDouble
 .LSOverride

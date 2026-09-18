@@ -176,6 +176,14 @@ export default function PosView({
 
   // Add product to cart logic
   const addProductToCart = (product, qty = 1, selectedUnit = null) => {
+    // Strictly prevent adding products if shift is not open
+    if (!activeShift) {
+      if (soundEnabled) playErrorBuzz();
+      alert('⚠️ تنبيه: لا يمكن البيع أو إضافة أصناف للفاتورة بدون فتح شيفت وردية أولاً!');
+      if (onOpenShift) onOpenShift();
+      return;
+    }
+
     // If sold by weight and no weight given yet, open weight modal
     if (product.is_weight && qty === 1 && !weightProduct) {
       setWeightProduct(product);
@@ -380,6 +388,12 @@ export default function PosView({
 
   // Payment Open
   const openPaymentModal = () => {
+    if (!activeShift) {
+      if (soundEnabled) playErrorBuzz();
+      alert('⚠️ تنبيه: لا يمكن الدفع أو البيع، يجب فتح شيفت وردية واستلام الدرج أولاً!');
+      if (onOpenShift) onOpenShift();
+      return;
+    }
     if (cart.length === 0) return;
     setPaidAmount(grandTotal.toString());
     setShowPaymentModal(true);
@@ -808,15 +822,26 @@ export default function PosView({
 
             {/* Bottom Checkout Big Action Button (F7) */}
             <div style={{ marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <button
-                className="btn btn-success btn-lg"
-                onClick={openPaymentModal}
-                disabled={cart.length === 0}
-                style={{ width: '100%', padding: '12px', fontSize: '16px', fontWeight: 800 }}
-              >
-                <DollarSign size={20} />
-                <span>إتمام ودفع الفاتورة (F7)</span>
-              </button>
+              {!activeShift ? (
+                <button
+                  className="btn btn-danger btn-lg"
+                  onClick={onOpenShift}
+                  style={{ width: '100%', padding: '12px', fontSize: '15px', fontWeight: 800, background: '#e11d48' }}
+                >
+                  <Play size={18} />
+                  <span>الوردية مغلقة - اضغط لفتح الشيفت وبدء البيع</span>
+                </button>
+              ) : (
+                <button
+                  className="btn btn-success btn-lg"
+                  onClick={openPaymentModal}
+                  disabled={cart.length === 0}
+                  style={{ width: '100%', padding: '12px', fontSize: '16px', fontWeight: 800 }}
+                >
+                  <DollarSign size={20} />
+                  <span>إتمام ودفع الفاتورة (F7)</span>
+                </button>
+              )}
 
               {lastCompletedSale && (
                 <button

@@ -1,11 +1,11 @@
 [phases.setup]
-nixPkgs = ['nodejs_22', 'python3']
+nixPkgs = ['nodejs_22']
 
 [phases.install]
 cmds = [
-  'npm ci --omit=dev --prefix server',
-  'npm ci --prefix client',
-  'npm ci --omit=dev'
+  'npm install --prefix server',
+  'npm install --prefix client',
+  'npm install'
 ]
 
 [phases.build]

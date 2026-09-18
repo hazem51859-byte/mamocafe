@@ -13,7 +13,8 @@ import {
   CircleDot,
   KeyRound,
   Play,
-  Square
+  Square,
+  Smartphone
 } from 'lucide-react';
 import { api } from '../services/api';
 
@@ -28,7 +29,9 @@ export default function Navbar({
   storeSettings,
   onOpenChangePassword,
   onOpenShift,
-  onCloseShift
+  onCloseShift,
+  activeTab,
+  onNavigate
 }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [alertCounts, setAlertCounts] = useState({ lowStock: 0, expired: 0 });
@@ -193,6 +196,28 @@ export default function Navbar({
 
       {/* Left Side: Actions, User Badge, Sound, Demo Switcher, Logout */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* Mobile Portal Shortcut for Admin */}
+        {(currentUser?.role === 'admin' || currentUser?.role === 'super_admin' || currentUser?.role === 'manager') && onNavigate && (
+          <button
+            onClick={() => onNavigate(activeTab === 'admin_mobile' ? 'dashboard' : 'admin_mobile')}
+            className="btn btn-sm"
+            style={{
+              background: activeTab === 'admin_mobile' ? '#0284c7' : '#1e293b',
+              color: activeTab === 'admin_mobile' ? '#ffffff' : '#38bdf8',
+              borderColor: activeTab === 'admin_mobile' ? '#38bdf8' : '#334155',
+              fontSize: '11.5px',
+              padding: '3px 8px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '5px'
+            }}
+            title="بوابة الإدارة للموبايل"
+          >
+            <Smartphone size={13} />
+            <span>شاشة الموبايل</span>
+          </button>
+        )}
+
         {/* Switch User Button (Requires Password) */}
         <button
           onClick={onOpenSwitchUser}

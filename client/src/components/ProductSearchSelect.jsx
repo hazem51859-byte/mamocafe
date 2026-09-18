@@ -209,24 +209,24 @@ export default function ProductSearchSelect({
             top: '100%',
             right: 0,
             left: 0,
-            maxHeight: '200px',
+            maxHeight: '320px',
             overflowY: 'auto',
             background: '#fff',
-            border: '1px solid #cbd5e1',
+            border: '1px solid #94a3b8',
             borderTop: 'none',
-            borderRadius: '0 0 3px 3px',
-            zIndex: 9999,
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+            borderRadius: '0 0 4px 4px',
+            zIndex: 99999,
+            boxShadow: '0 8px 24px rgba(0,0,0,0.18)'
           }}
         >
           {filtered.length === 0 ? (
             <div style={{
-              padding: '10px',
+              padding: '14px',
               textAlign: 'center',
               color: '#94a3b8',
               fontSize: '12px'
             }}>
-              لا توجد نتائج مطابقة
+              لا توجد نتائج مطابقة للبحث
             </div>
           ) : (
             filtered.map((p, idx) => (
@@ -235,8 +235,7 @@ export default function ProductSearchSelect({
                 className="pss-item"
                 onClick={() => handleSelect(p)}
                 style={{
-                  padding: '6px 10px',
-                  fontSize: '12px',
+                  padding: '8px 12px',
                   cursor: 'pointer',
                   background: String(p.id) === String(value)
                     ? '#e0f2fe'
@@ -247,22 +246,46 @@ export default function ProductSearchSelect({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  gap: '8px'
+                  gap: '10px'
                 }}
                 onMouseEnter={() => setHighlightIdx(idx)}
               >
-                <span style={{ fontWeight: String(p.id) === String(value) ? 700 : 400 }}>
-                  {getLabel(p)}
-                </span>
-                {p.stock_quantity !== undefined && (
-                  <span style={{
-                    fontSize: '10px',
-                    color: p.stock_quantity <= 0 ? '#ef4444' : '#64748b',
-                    whiteSpace: 'nowrap'
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
+                  <div style={{
+                    fontWeight: String(p.id) === String(value) ? 800 : 600,
+                    fontSize: '13px',
+                    color: '#0f172a',
+                    whiteSpace: 'normal',
+                    lineHeight: '1.3'
                   }}>
-                    رصيد: {p.stock_quantity}
-                  </span>
-                )}
+                    {p.name}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#64748b', display: 'flex', gap: '8px', marginTop: '3px', alignItems: 'center' }}>
+                    {p.barcode && (
+                      <span className="num-mono" style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '3px', border: '1px solid #e2e8f0', color: '#334155' }}>
+                        {p.barcode}
+                      </span>
+                    )}
+                    {p.unit && <span>الوحدة: {p.unit}</span>}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px', flexShrink: 0 }}>
+                  {p.purchase_price !== undefined && (
+                    <span className="num-mono" style={{ fontSize: '12px', fontWeight: 800, color: '#15803d', background: '#dcfce7', padding: '1px 6px', borderRadius: '3px' }}>
+                      {parseFloat(p.purchase_price).toFixed(2)} ج.م
+                    </span>
+                  )}
+                  {p.stock_quantity !== undefined && (
+                    <span className="num-mono" style={{
+                      fontSize: '11px',
+                      color: p.stock_quantity <= 0 ? '#ef4444' : '#64748b',
+                      fontWeight: p.stock_quantity <= 0 ? 700 : 500
+                    }}>
+                      رصيد: {p.stock_quantity}
+                    </span>
+                  )}
+                </div>
               </div>
             ))
           )}

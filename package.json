@@ -16,5 +16,8 @@
   },
   "dependencies": {
     "concurrently": "^9.1.2"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^5.7.0"
   }
 }

@@ -17,7 +17,8 @@ import {
   Settings,
   ChevronRight,
   ChevronLeft,
-  KeyRound
+  KeyRound,
+  Smartphone
 } from 'lucide-react';
 
 export default function Sidebar({
@@ -43,17 +44,23 @@ export default function Sidebar({
     { id: 'expenses', label: 'المصروفات', icon: Wallet, perm: 'view_expenses' },
     { id: 'shifts', label: 'الخزينة والشيفتات', icon: Coins, perm: 'shifts_manage' },
     { id: 'reports', label: 'التقارير والأرباح', icon: BarChart3, perm: 'view_reports' },
+    { id: 'admin_mobile', label: 'بوابة الموبايل (للإدارة)', icon: Smartphone, perm: 'view_reports', adminOnly: true },
     { id: 'users', label: 'المستخدمين', icon: UserCog, perm: 'manage_users' },
     { id: 'settings', label: 'الإعدادات والنسخ', icon: Settings, perm: 'manage_settings' }
   ];
 
   // Cashier restriction: ONLY sees POS, Returns, and Products!
   const isCashier = currentUser?.role === 'cashier';
+  const isAdmin = currentUser?.role === 'super_admin' || currentUser?.role === 'admin' || currentUser?.role === 'manager';
+
   const visibleMenuItems = menuItems.filter(item => {
     if (isCashier) {
       return ['pos', 'returns', 'products'].includes(item.id);
     }
-    if (currentUser?.role === 'super_admin' || currentUser?.role === 'admin') {
+    if (item.adminOnly && !isAdmin) {
+      return false;
+    }
+    if (isAdmin) {
       return true;
     }
     return !item.perm || userPermissions.includes(item.perm);

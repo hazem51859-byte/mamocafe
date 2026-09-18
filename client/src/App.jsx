@@ -10,6 +10,7 @@ import OpenShiftModal from './components/OpenShiftModal';
 import CloseShiftModal from './components/CloseShiftModal';
 
 // Views
+import ActivationView from './views/ActivationView';
 import LoginView from './views/LoginView';
 import DashboardView from './views/DashboardView';
 import PosView from './views/PosView';
@@ -26,12 +27,22 @@ import ShiftsView from './views/ShiftsView';
 import ReportsView from './views/ReportsView';
 import UsersView from './views/UsersView';
 import SettingsView from './views/SettingsView';
+import AdminMobileView from './views/AdminMobileView';
 
 import { api, getStoredUser, setToken, setStoredUser } from './services/api';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(() => getStoredUser());
-  const [activeTab, setActiveTab] = useState('pos'); // Default to POS for cashier speed!
+  const [isActivated, setIsActivated] = useState(true); // Checked on mount
+  const [activeTab, setActiveTab] = useState(() => {
+    try {
+      const user = getStoredUser();
+      if (typeof window !== 'undefined' && window.innerWidth <= 768 && (user?.role === 'admin' || user?.role === 'super_admin' || user?.role === 'manager')) {
+        return 'admin_mobile';
+      }
+    } catch (e) {}
+    return 'pos';
+  });
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
@@ -53,6 +64,19 @@ export default function App() {
   const [showSwitchUserModal, setShowSwitchUserModal] = useState(false);
   const [showOpenShiftModal, setShowOpenShiftModal] = useState(false);
   const [showCloseShiftModal, setShowCloseShiftModal] = useState(false);
+
+  // Check Activation Status on Mount
+  useEffect(() => {
+    api.get('/license/status')
+      .then(res => {
+        if (res && res.isActivated === false) {
+          setIsActivated(false);
+        } else {
+          setIsActivated(true);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Update browser document title dynamically when store settings change
   useEffect(() => {
@@ -123,6 +147,18 @@ export default function App() {
     } catch (e) {}
   };
 
+  // If system is not activated, render Hardware Activation Screen
+  if (!isActivated) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div style={{ flex: 1 }}>
+          <ActivationView onActivationSuccess={() => setIsActivated(true)} />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   // If not logged in, render Login View
   if (!currentUser) {
     return (
@@ -150,6 +186,8 @@ export default function App() {
         onOpenChangePassword={() => setShowChangePasswordModal(true)}
         onOpenShift={() => setShowOpenShiftModal(true)}
         onCloseShift={() => setShowCloseShiftModal(true)}
+        activeTab={activeTab}
+        onNavigate={(tab) => setActiveTab(tab)}
       />
 
       {/* Main Workspace (Sidebar + Screen Content) */}
@@ -211,7 +249,10 @@ export default function App() {
           {activeTab === 'expenses' && <ExpensesView />}
 
           {activeTab === 'shifts' && (
-            <ShiftsView onShiftChange={(s) => setActiveShift(s)} />
+            <ShiftsView
+              onShiftChange={(s) => setActiveShift(s)}
+              currentUser={currentUser}
+            />
           )}
 
           {activeTab === 'reports' && <ReportsView />}
@@ -220,6 +261,13 @@ export default function App() {
 
           {activeTab === 'settings' && (
             <SettingsView onSettingsUpdate={handleSettingsUpdate} />
+          )}
+
+          {activeTab === 'admin_mobile' && (
+            <AdminMobileView
+              currentUser={currentUser}
+              storeSettings={storeSettings}
+            />
           )}
         </main>
       </div>

@@ -275,20 +275,21 @@ export default function PurchasesView() {
       {/* Add Purchase Invoice Modal */}
       {showAddModal && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ width: '800px', maxHeight: '90vh' }}>
+          <div className="modal-content" style={{ width: '95vw', maxWidth: '1320px', height: '92vh', maxHeight: '92vh', display: 'flex', flexDirection: 'column' }}>
             <div className="modal-header">
-              <span>تسجيل فاتورة توريد مشتريات بضاعة جديدة</span>
+              <span style={{ fontSize: '15px', fontWeight: 800 }}>تسجيل فاتورة توريد مشتريات بضاعة جديدة</span>
               <button className="close-btn" onClick={() => setShowAddModal(false)}><X size={18} /></button>
             </div>
             <form onSubmit={handleSavePurchase} style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
-              <div className="modal-body">
-                <div className="form-row">
-                  <div className="form-group" style={{ flex: 1.5 }}>
-                    <label>اختر المورد (*):</label>
+              <div className="modal-body" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: '16px 20px' }}>
+                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '14px', marginBottom: '10px' }}>
+                  <div className="form-group">
+                    <label style={{ fontWeight: 700, marginBottom: '4px' }}>اختر المورد (*):</label>
                     <select
                       required
                       value={supplierId}
                       onChange={(e) => setSupplierId(e.target.value)}
+                      style={{ padding: '8px 12px', fontSize: '13.5px', fontWeight: 600 }}
                     >
                       {suppliers.map(s => (
                         <option key={s.id} value={s.id}>{s.name} ({s.company || 'مورد'})</option>
@@ -297,42 +298,52 @@ export default function PurchasesView() {
                   </div>
 
                   <div className="form-group">
-                    <label>تاريخ الفاتورة:</label>
+                    <label style={{ fontWeight: 700, marginBottom: '4px' }}>تاريخ الفاتورة والتوريد:</label>
                     <input
                       type="date"
                       value={invoiceDate}
                       onChange={(e) => setInvoiceDate(e.target.value)}
+                      style={{ padding: '8px 12px', fontSize: '13.5px' }}
                     />
                   </div>
                 </div>
 
                 {/* Items in Purchase Invoice */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '8px 0 4px' }}>
-                  <span style={{ fontWeight: 700, fontSize: '13px' }}>أصناف فاتورة التوريد:</span>
-                  <button type="button" className="btn btn-sm btn-primary" onClick={addPurchaseRow}>
-                    <Plus size={12} />
-                    <span>إضافة صنف للفاتورة</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '10px 0 8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontWeight: 800, fontSize: '14px', color: '#0f172a' }}>أصناف فاتورة التوريد ({purchaseItems.length} صنف):</span>
+                    <span style={{ fontSize: '11.5px', color: '#64748b' }}>يمكنك البحث بالاسم أو كتابة الباركود لاختيار الصنف بسرعة</span>
+                  </div>
+                  <button type="button" className="btn btn-sm btn-primary" onClick={addPurchaseRow} style={{ padding: '5px 12px', fontSize: '12.5px' }}>
+                    <Plus size={14} />
+                    <span>إضافة صنف جديد للفاتورة</span>
                   </button>
                 </div>
 
-                <div className="table-container" style={{ maxHeight: '240px', marginBottom: '10px' }}>
-                  <table className="dense-table">
+                <div className="table-container" style={{ flex: 1, minHeight: '350px', maxHeight: '50vh', overflowY: 'auto', marginBottom: '12px', border: '1px solid #cbd5e1' }}>
+                  <table className="dense-table" style={{ width: '100%' }}>
                     <thead>
                       <tr>
-                        <th>الصنف</th>
-                        <th style={{ width: '110px' }}>الكمية</th>
-                        <th style={{ width: '110px' }}>سعر الشراء</th>
-                        <th style={{ width: '120px' }}>الإجمالي</th>
-                        <th style={{ width: '40px' }}>حذف</th>
+                        <th style={{ width: '40px', textAlign: 'center' }}>#</th>
+                        <th style={{ minWidth: '460px' }}>الصنف (ابحث بالاسم أو الباركود)</th>
+                        <th style={{ width: '130px', textAlign: 'center' }}>الكمية الموردة</th>
+                        <th style={{ width: '140px', textAlign: 'center' }}>سعر الشراء للوحدة</th>
+                        <th style={{ width: '140px', textAlign: 'center' }}>الإجمالي</th>
+                        <th style={{ width: '45px', textAlign: 'center' }}>حذف</th>
                       </tr>
                     </thead>
                     <tbody>
                       {purchaseItems.length === 0 ? (
-                        <tr><td colSpan="5" style={{ textAlign: 'center', padding: '15px' }}>اضغط على "إضافة صنف" لإدراج أصناف الفاتورة</td></tr>
+                        <tr>
+                          <td colSpan="6" style={{ textAlign: 'center', padding: '30px', color: '#64748b', fontSize: '13px' }}>
+                            لم يتم إضافة أي أصناف بعد. اضغط على زر <strong>"إضافة صنف جديد للفاتورة"</strong> للبدء.
+                          </td>
+                        </tr>
                       ) : (
                         purchaseItems.map((row, idx) => (
                           <tr key={idx}>
-                            <td>
+                            <td className="num-mono" style={{ textAlign: 'center', fontWeight: 700 }}>{idx + 1}</td>
+                            <td style={{ padding: '4px 6px' }}>
                               <ProductSearchSelect
                                 products={products}
                                 value={row.productId}
@@ -345,31 +356,34 @@ export default function PurchasesView() {
                               <input
                                 type="number"
                                 step="any"
+                                min="0.001"
                                 value={row.quantity}
                                 onChange={(e) => updatePurchaseRow(idx, 'quantity', e.target.value)}
-                                style={{ width: '100%', textAlign: 'center', fontWeight: 700 }}
+                                style={{ width: '100%', textAlign: 'center', fontWeight: 800, fontSize: '13.5px', padding: '6px' }}
                               />
                             </td>
                             <td>
                               <input
                                 type="number"
                                 step="any"
+                                min="0"
                                 value={row.purchasePrice}
                                 onChange={(e) => updatePurchaseRow(idx, 'purchasePrice', e.target.value)}
-                                style={{ width: '100%', textAlign: 'center' }}
+                                style={{ width: '100%', textAlign: 'center', fontWeight: 700, fontSize: '13.5px', padding: '6px' }}
                               />
                             </td>
-                            <td className="num-mono" style={{ fontWeight: 700 }}>
+                            <td className="num-mono" style={{ fontWeight: 800, textAlign: 'center', fontSize: '14px', color: '#0f172a' }}>
                               {(parseFloat(row.quantity || 0) * parseFloat(row.purchasePrice || 0)).toFixed(2)} ج.م
                             </td>
                             <td style={{ textAlign: 'center' }}>
                               <button
                                 type="button"
                                 className="btn btn-sm btn-danger"
-                                style={{ padding: '2px 5px' }}
+                                style={{ padding: '4px 7px' }}
                                 onClick={() => removePurchaseRow(idx)}
+                                title="حذف هذا الصنف من الفاتورة"
                               >
-                                <Trash2 size={11} />
+                                <Trash2 size={13} />
                               </button>
                             </td>
                           </tr>
@@ -380,24 +394,26 @@ export default function PurchasesView() {
                 </div>
 
                 {/* Summary & Payment */}
-                <div className="form-row">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '8px' }}>
                   <div className="form-group">
-                    <label>الخصم الممنوح من المورد:</label>
+                    <label style={{ fontWeight: 700, fontSize: '12px' }}>الخصم الممنوح من المورد (ج.م):</label>
                     <input
                       type="number"
                       step="any"
                       value={discountAmount}
                       onChange={(e) => setDiscountAmount(e.target.value)}
+                      style={{ padding: '6px 10px', fontSize: '13px' }}
                     />
                   </div>
 
                   <div className="form-group">
-                    <label>المدفوع نقداً للمورد الآن:</label>
+                    <label style={{ fontWeight: 700, fontSize: '12px' }}>المدفوع نقداً للمورد الآن (ج.م):</label>
                     <input
                       type="number"
                       step="any"
                       value={paidAmount}
                       onChange={(e) => setPaidAmount(e.target.value)}
+                      style={{ padding: '6px 10px', fontSize: '13px', fontWeight: 700, color: '#15803d' }}
                     />
                   </div>
                 </div>
@@ -406,29 +422,28 @@ export default function PurchasesView() {
                   style={{
                     background: '#f8fafc',
                     border: '1px solid #cbd5e1',
-                    padding: '8px 14px',
-                    borderRadius: '3px',
+                    padding: '10px 16px',
+                    borderRadius: '4px',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: '6px'
+                    alignItems: 'center'
                   }}
                 >
-                  <div>
-                    إجمالي الفاتورة: <strong className="num-mono" style={{ fontSize: '15px' }}>{grandTotal.toFixed(2)} ج.م</strong>
+                  <div style={{ fontSize: '13.5px' }}>
+                    إجمالي الفاتورة النهائي: <strong className="num-mono" style={{ fontSize: '17px', color: '#0f172a', marginRight: '4px' }}>{grandTotal.toFixed(2)} ج.م</strong>
                   </div>
-                  <div style={{ color: grandTotal - (parseFloat(paidAmount) || 0) > 0 ? '#b71c1c' : '#15803d' }}>
-                    المتبقي لحساب المورد (آجل): <strong className="num-mono" style={{ fontSize: '15px' }}>
+                  <div style={{ fontSize: '13.5px', color: grandTotal - (parseFloat(paidAmount) || 0) > 0 ? '#b71c1c' : '#15803d' }}>
+                    المتبقي لحساب المورد (آجل): <strong className="num-mono" style={{ fontSize: '17px', marginRight: '4px' }}>
                       {Math.max(0, grandTotal - (parseFloat(paidAmount) || 0)).toFixed(2)} ج.م
                     </strong>
                   </div>
                 </div>
               </div>
 
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShowAddModal(false)}>إلغاء</button>
-                <button type="submit" className="btn btn-primary">
-                  <Check size={14} />
+              <div className="modal-footer" style={{ padding: '10px 18px', background: '#f1f5f9', borderTop: '1px solid #cbd5e1' }}>
+                <button type="button" className="btn btn-secondary" onClick={() => setShowAddModal(false)} style={{ padding: '7px 16px' }}>إلغاء</button>
+                <button type="submit" className="btn btn-primary" style={{ padding: '7px 20px', fontSize: '13.5px', fontWeight: 700 }}>
+                  <Check size={16} />
                   <span>تأكيد الفاتورة وإضافة البضاعة للمخزن</span>
                 </button>
               </div>
@@ -440,7 +455,7 @@ export default function PurchasesView() {
       {/* View Details Modal */}
       {selectedPurchase && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ width: '600px', maxHeight: '80vh' }}>
+          <div className="modal-content" style={{ width: '92vw', maxWidth: '1000px', maxHeight: '88vh' }}>
             <div className="modal-header">
               <span>تفاصيل فاتورة مشتريات: {selectedPurchase.invoice_number}</span>
               <button className="close-btn" onClick={() => setSelectedPurchase(null)}>✕</button>

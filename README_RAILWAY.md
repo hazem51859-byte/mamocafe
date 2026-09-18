@@ -1,82 +1,51 @@
-# نشر المشروع على Railway
+# دليل نشر نظام Mamo Cafe & POS على منصة Railway 🚀
 
-## الخطوات:
-
-### 1. تثبيت Railway CLI (اختياري)
-```bash
-npm install -g @railway/cli
-```
-
-### 2. تسجيل الدخول (إذا استخدمت CLI)
-```bash
-railway login
-```
-
-### 3. النشر عبر GitHub (الطريقة الموصى بها)
-
-#### أ. إنشاء مستودع Git
-```bash
-git init
-git add .
-git commit -m "Initial commit - ZoTech Market POS System"
-```
-
-#### ب. رفع المشروع على GitHub
-1. أنشئ مستودع جديد على GitHub
-2. ارفع المشروع:
-```bash
-git remote add origin <YOUR_GITHUB_REPO_URL>
-git branch -M main
-git push -u origin main
-```
-
-#### ج. ربط المشروع بـ Railway
-1. اذهب إلى [Railway.app](https://railway.app)
-2. سجل دخول أو أنشئ حساب جديد
-3. اضغط "New Project"
-4. اختر "Deploy from GitHub repo"
-5. اختر المستودع الذي أنشأته
-6. Railway سيكتشف المشروع تلقائياً وينشره!
-
-### 4. إعدادات إضافية (في Railway Dashboard)
-
-بعد النشر، ستحتاج لإضافة متغيرات البيئة (Environment Variables):
-
-- `PORT`: سيتم إعداده تلقائياً من Railway
-- `NODE_ENV`: `production`
-- أي متغيرات أخرى يحتاجها المشروع (JWT_SECRET, إلخ)
-
-### 5. النشر المباشر عبر CLI (بديل)
-```bash
-railway init
-railway up
-```
-
-## ملاحظات مهمة:
-
-✅ **قاعدة البيانات**: المشروع يستخدم SQLite وسيتم إنشاء الملف تلقائياً
-⚠️ **تنبيه**: بيانات SQLite ستكون مؤقتة على Railway (تُفقد عند إعادة النشر)
-💡 **للإنتاج الفعلي**: يُنصح باستخدام PostgreSQL أو MySQL من Railway
-
-### لاستخدام PostgreSQL على Railway:
-1. في Railway Dashboard، اضغط "+ New"
-2. اختر "Database" → "PostgreSQL"
-3. سيتم إنشاء متغير `DATABASE_URL` تلقائياً
-4. عدّل كود الـ Backend لاستخدام PostgreSQL بدلاً من SQLite
-
-## الوصول للتطبيق:
-
-بعد النشر، ستحصل على رابط مثل:
-```
-https://your-project-name.up.railway.app
-```
-
-## استكشاف الأخطاء:
-
-- راجع اللوجز في Railway Dashboard
-- تأكد من أن `package.json` يحتوي على الـ `scripts` الصحيحة
-- تحقق من أن المتغيرات البيئية مضبوطة بشكل صحيح
+تم تحويل النظام بالكامل ليعمل على **PostgreSQL** السحابية لضمان حفظ البيانات بشكل دائم وتوفير أداء فائق وسرعة استجابة عبر الإنترنت والهواتف الذكية.
 
 ---
 
-**تم إعداد المشروع للنشر! 🚀**
+## خطوات التشغيل على Railway خطوة بخطوة:
+
+### 1. إنشاء مشروع جديد
+1. ادخل إلى [Railway.app](https://railway.com/) وسجل الدخول بحسابك.
+2. اضغط على **"New Project"**.
+3. اختر **"Deploy from GitHub repo"**.
+4. حدد مستودع: `hazem51859-byte/mamocafe`.
+
+---
+
+### 2. إضافة قاعدة بيانات PostgreSQL
+1. في نفس صفحة المشروع على Railway، اضغط على زر **`+ Create`** (أو New).
+2. اختر **"Database"** ثم اختر **"Add PostgreSQL"**.
+3. انتظر بضع ثوانٍ حتى يتم إنشاء قاعدة البيانات بنجاح.
+
+---
+
+### 3. ربط تطبيق الويب بقاعدة البيانات (Environment Variables)
+1. اضغط على بطاقة الخدمة الخاصة بالتطبيق (`mamocafe`).
+2. اذهب إلى تبويب **"Variables"**.
+3. اضغط على **"Add Variable"** ثم اختر **"Add Reference"** واختر `DATABASE_URL` من خدمة PostgreSQL (أو اكتب `${{Postgres.DATABASE_URL}}`).
+   > *ملاحظة: في معظم الحالات يربط Railway المتغير `DATABASE_URL` تلقائياً.*
+4. تأكد من وجود المتغيرات التالية:
+   - `DATABASE_URL`: رابط اتصال قاعدة البيانات من خطوة 2
+   - `JWT_SECRET`: أي نص عشوائي قوي لتشفير الجلسات (مثال: `MamoCafeSuperSecretJWT2024!`)
+   - `NODE_ENV`: `production`
+
+---
+
+### 4. توليد رابط الدخول المباشر (Domain)
+1. في بطاقة تطبيق الويب (`mamocafe`)، اذهب إلى تبويب **"Settings"**.
+2. ابحث عن قسم **"Networking"** أو **"Public Networking"**.
+3. اضغط على **"Generate Domain"**.
+4. سيظهر لك رابط فوري مثل:
+   ```
+   https://mamocafe-production.up.railway.app
+   ```
+
+---
+
+## بيانات الدخول الافتراضية للنظام النظيف:
+- **المستخدم:** `admin`
+- **كلمة المرور:** `admin123`
+
+*(النظام مهيأ وفارغ بالكامل وجاهز لإدخال أصناف ومنتجات وأقسام الكافيه والمحل الجديدة)*
