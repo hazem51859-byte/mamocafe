@@ -12,35 +12,35 @@ async function seedDatabase() {
     return;
   }
 
-  const run = db.transaction(() => {
+  await db.transaction(async (tx) => {
     // 1. Settings
-    const insertSetting = db.prepare('INSERT INTO settings (key, value, description) VALUES (?, ?, ?) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value');
-    insertSetting.run('store_name', 'Mamo Cafe & Market', 'اسم المنشأة');
-    insertSetting.run('store_branch', 'الفرع الرئيسي', 'اسم الفرع');
-    insertSetting.run('store_phone', '01275984405', 'هاتف المتجر');
-    insertSetting.run('store_address', 'القاهرة، مصر', 'عنوان المتجر');
-    insertSetting.run('tax_number', '', 'رقم التسجيل الضريبي');
-    insertSetting.run('commercial_register', '', 'رقم السجل التجاري');
-    insertSetting.run('tax_percentage', '0', 'نسبة ضريبة القيمة المضافة %');
-    insertSetting.run('currency', 'ج.م', 'العملة الرسمية');
-    insertSetting.run('receipt_header', 'أهلاً بكم في Mamo Cafe & Market', 'ترويسة الفاتورة');
-    insertSetting.run('receipt_footer', 'شكراً لزيارتكم - نتمنى لكم يوماً سعيداً', 'تذييل الفاتورة');
-    insertSetting.run('receipt_width', '80mm', 'عرض الفاتورة الافتراضي (80mm, 58mm, A4)');
-    insertSetting.run('auto_print', '1', 'الطباعة التلقائية بعد إنهاء الفاتورة');
-    insertSetting.run('invoice_prefix', 'INV-', 'بادئة رقم الفاتورة');
-    insertSetting.run('developer_brand', 'ZoTech', 'الجهة المطورة');
-    insertSetting.run('developer_whatsapp', '01275984405', 'رقم واتساب الدعم الفني');
-    insertSetting.run('drawer_balance', '0', 'رصيد الدرج الحالي');
-    insertSetting.run('safe_balance', '0', 'رصيد الخزنة الرئيسية');
-    insertSetting.run('visa_balance', '0', 'رصيد حساب الفيزا / البنك');
-    insertSetting.run('instapay_balance', '0', 'رصيد انستا باي');
-    insertSetting.run('main_safe_opening_balance', '0', 'الرصيد الافتتاحي للخزنة الرئيسية');
-    insertSetting.run('visa_opening_balance', '0', 'الرصيد الافتتاحي للفيزا');
-    insertSetting.run('instapay_opening_balance', '0', 'الرصيد الافتتاحي لانستا باي');
-    insertSetting.run('default_opening_cash', '0', 'الرصيد الافتتاحي الافتراضي للدرج');
+    const insertSetting = tx.prepare('INSERT INTO settings (key, value, description) VALUES (?, ?, ?) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value');
+    await insertSetting.run('store_name', 'Mamo Cafe & Market', 'اسم المنشأة');
+    await insertSetting.run('store_branch', 'الفرع الرئيسي', 'اسم الفرع');
+    await insertSetting.run('store_phone', '01275984405', 'هاتف المتجر');
+    await insertSetting.run('store_address', 'القاهرة، مصر', 'عنوان المتجر');
+    await insertSetting.run('tax_number', '', 'رقم التسجيل الضريبي');
+    await insertSetting.run('commercial_register', '', 'رقم السجل التجاري');
+    await insertSetting.run('tax_percentage', '0', 'نسبة ضريبة القيمة المضافة %');
+    await insertSetting.run('currency', 'ج.م', 'العملة الرسمية');
+    await insertSetting.run('receipt_header', 'أهلاً بكم في Mamo Cafe & Market', 'ترويسة الفاتورة');
+    await insertSetting.run('receipt_footer', 'شكراً لزيارتكم - نتمنى لكم يوماً سعيداً', 'تذييل الفاتورة');
+    await insertSetting.run('receipt_width', '80mm', 'عرض الفاتورة الافتراضي (80mm, 58mm, A4)');
+    await insertSetting.run('auto_print', '1', 'الطباعة التلقائية بعد إنهاء الفاتورة');
+    await insertSetting.run('invoice_prefix', 'INV-', 'بادئة رقم الفاتورة');
+    await insertSetting.run('developer_brand', 'ZoTech', 'الجهة المطورة');
+    await insertSetting.run('developer_whatsapp', '01275984405', 'رقم واتساب الدعم الفني');
+    await insertSetting.run('drawer_balance', '0', 'رصيد الدرج الحالي');
+    await insertSetting.run('safe_balance', '0', 'رصيد الخزنة الرئيسية');
+    await insertSetting.run('visa_balance', '0', 'رصيد حساب الفيزا / البنك');
+    await insertSetting.run('instapay_balance', '0', 'رصيد انستا باي');
+    await insertSetting.run('main_safe_opening_balance', '0', 'الرصيد الافتتاحي للخزنة الرئيسية');
+    await insertSetting.run('visa_opening_balance', '0', 'الرصيد الافتتاحي للفيزا');
+    await insertSetting.run('instapay_opening_balance', '0', 'الرصيد الافتتاحي لانستا باي');
+    await insertSetting.run('default_opening_cash', '0', 'الرصيد الافتتاحي الافتراضي للدرج');
 
     // 2. Roles
-    const insertRole = db.prepare('INSERT INTO roles (name, display_name, permissions) VALUES (?, ?, ?)');
+    const insertRole = tx.prepare('INSERT INTO roles (name, display_name, permissions) VALUES (?, ?, ?)');
     
     const allPermissions = [
       'view_dashboard',
@@ -91,22 +91,22 @@ async function seedDatabase() {
     const accountantPerms = ['view_dashboard', 'view_sales', 'view_purchases', 'manage_purchases', 'view_suppliers', 'manage_suppliers', 'view_customers', 'manage_customers', 'view_expenses', 'manage_expenses', 'shifts_manage', 'view_reports', 'export_reports'];
     const inventoryPerms = ['view_dashboard', 'view_products', 'manage_products', 'print_barcodes', 'view_inventory', 'manage_inventory', 'stock_adjustments'];
 
-    insertRole.run('super_admin', 'المدير العام (Super Admin)', JSON.stringify(allPermissions));
-    insertRole.run('admin', 'مسؤول النظام (Admin)', JSON.stringify(allPermissions));
-    insertRole.run('manager', 'مدير الفرع (Manager)', JSON.stringify(managerPerms));
-    insertRole.run('cashier', 'كاشير (Cashier)', JSON.stringify(cashierPerms));
-    insertRole.run('inventory', 'أمين المخزن (Inventory)', JSON.stringify(inventoryPerms));
-    insertRole.run('accountant', 'محاسب مالي (Accountant)', JSON.stringify(accountantPerms));
+    await insertRole.run('super_admin', 'المدير العام (Super Admin)', JSON.stringify(allPermissions));
+    await insertRole.run('admin', 'مسؤول النظام (Admin)', JSON.stringify(allPermissions));
+    await insertRole.run('manager', 'مدير الفرع (Manager)', JSON.stringify(managerPerms));
+    await insertRole.run('cashier', 'كاشير (Cashier)', JSON.stringify(cashierPerms));
+    await insertRole.run('inventory', 'أمين المخزن (Inventory)', JSON.stringify(inventoryPerms));
+    await insertRole.run('accountant', 'محاسب مالي (Accountant)', JSON.stringify(accountantPerms));
 
     // 3. Primary Admin User Only
-    const insertUser = db.prepare('INSERT INTO users (username, password_hash, full_name, role_id, phone, is_active) VALUES (?, ?, ?, ?, ?, ?)');
+    const insertUser = tx.prepare('INSERT INTO users (username, password_hash, full_name, role_id, phone, is_active) VALUES (?, ?, ?, ?, ?, ?)');
     const salt = bcrypt.genSaltSync(10);
     const hashAdmin = bcrypt.hashSync('admin123', salt);
 
-    insertUser.run('admin', hashAdmin, 'م. حازم منتصر (المدير العام)', 1, '01275984405', 1);
+    await insertUser.run('admin', hashAdmin, 'م. حازم منتصر (المدير العام)', 1, '01275984405', 1);
 
     // 4. Default Units
-    const insertUnit = db.prepare('INSERT INTO units (name, symbol) VALUES (?, ?)');
+    const insertUnit = tx.prepare('INSERT INTO units (name, symbol) VALUES (?, ?)');
     const defaultUnits = [
       ['قطعة', 'قطعة'],
       ['علبة', 'علبة'],
@@ -117,11 +117,10 @@ async function seedDatabase() {
       ['كوب', 'كوب']
     ];
     for (const [name, sym] of defaultUnits) {
-      insertUnit.run(name, sym);
+      await insertUnit.run(name, sym);
     }
   });
 
-  await run();
   console.log('✅ Clean database seeded successfully with Super Admin user!');
 }
 

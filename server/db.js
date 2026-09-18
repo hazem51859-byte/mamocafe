@@ -146,7 +146,7 @@ const db = {
         async run(sql, params = []) {
           let formatted = formatSql(sql);
           const isInsert = /^\s*INSERT\s+INTO/i.test(formatted);
-          if (isInsert && !/RETURNING/i.test(formatted)) {
+          if (isInsert && !/RETURNING/i.test(formatted) && !/INSERT\s+INTO\s+settings/i.test(formatted)) {
             formatted += ' RETURNING id';
           }
           const cleanParams = sanitizeParams(params);

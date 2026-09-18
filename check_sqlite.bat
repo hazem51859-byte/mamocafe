@@ -1,6 +1,0 @@
-@echo off
-echo Testing better-sqlite3 with Node v22...
-"Z:\Downloads\Market\ZoTech_Market_POS_Windows\runtime\node.exe" -e "try { require('./server/node_modules/better-sqlite3'); console.log('OK - works with Node v22'); } catch(e) { console.error('FAIL:', e.message); }"
-echo.
-echo Testing from main server folder...
-"Z:\Downloads\Market\ZoTech_Market_POS_Windows\runtime\node.exe" -e "try { require('Z:/Downloads/Market/server/node_modules/better-sqlite3'); console.log('OK - main server folder works'); } catch(e) { console.error('FAIL:', e.message); }"

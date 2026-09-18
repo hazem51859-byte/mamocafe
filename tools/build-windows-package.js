@@ -155,7 +155,7 @@ async function main() {
   }
 
   // Copy server node_modules
-  console.log('📚 نسخ مكتبات السيرفر (node_modules مع win32-x64 SQLite addon)...');
+  console.log('📚 نسخ مكتبات السيرفر (node_modules)...');
   fs.cpSync(path.join(ROOT_DIR, 'server', 'node_modules'), path.join(OUTPUT_DIR, 'server', 'node_modules'), { recursive: true });
 
   // 5. Generate Windows Launchers
