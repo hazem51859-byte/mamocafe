@@ -1,14 +1,15 @@
 const bcrypt = require('bcryptjs');
 const { db } = require('./db');
+const catalog = require('./data/egyptian_catalog');
 
-async function seedDatabase() {
+async function seedBase() {
   console.log('Checking database seed status...');
 
-  // Check if already seeded
+  // Check if already seeded with users
   const userCountRes = await db.prepare('SELECT COUNT(*) as count FROM users').get();
   const userCount = userCountRes ? parseInt(userCountRes.count) : 0;
   if (userCount > 0) {
-    console.log('Database already has users. Skipping initial seed.');
+    console.log('Database already has users. Skipping initial user seed.');
     return;
   }
 
@@ -111,6 +112,10 @@ async function seedDatabase() {
       ['قطعة', 'قطعة'],
       ['علبة', 'علبة'],
       ['كرتونة', 'كرتونة'],
+      ['باكت', 'باكت'],
+      ['كيس', 'كيس'],
+      ['زجاجة', 'زجاجة'],
+      ['برطمان', 'برطمان'],
       ['كيلوجرام', 'كجم'],
       ['جرام', 'جم'],
       ['لتر', 'لتر'],
@@ -121,12 +126,97 @@ async function seedDatabase() {
     }
   });
 
-  console.log('✅ Clean database seeded successfully with Super Admin user!');
+  console.log('✅ Base roles, admin user, units and settings seeded successfully!');
+}
+
+async function seedEgyptianProducts() {
+  const prodCountRes = await db.prepare('SELECT COUNT(*) as count FROM products').get();
+  const prodCount = prodCountRes ? parseInt(prodCountRes.count) : 0;
+  if (prodCount > 0) {
+    console.log(`Database already has ${prodCount} products. Skipping product catalog seed.`);
+    return;
+  }
+
+  console.log('📦 Seeding standard Egyptian supermarket catalog (180+ items including cigarettes & groceries)...');
+
+  await db.transaction(async (tx) => {
+    // 1. Categories
+    const catMap = new Map();
+    for (const cat of catalog.categories) {
+      const existing = await tx.prepare('SELECT id FROM categories WHERE name = ?').get(cat.name);
+      if (existing) {
+        catMap.set(cat.name, existing.id);
+      } else {
+        const res = await tx.prepare('INSERT INTO categories (name, code, icon, sort_order) VALUES (?, ?, ?, ?)').run(cat.name, cat.code, cat.icon, cat.sort_order);
+        catMap.set(cat.name, res.lastInsertRowid);
+      }
+    }
+
+    // 2. Brands
+    const brandMap = new Map();
+    for (const b of catalog.brands) {
+      const existing = await tx.prepare('SELECT id FROM brands WHERE name = ?').get(b);
+      if (existing) {
+        brandMap.set(b, existing.id);
+      } else {
+        const res = await tx.prepare('INSERT INTO brands (name) VALUES (?)').run(b);
+        brandMap.set(b, res.lastInsertRowid);
+      }
+    }
+
+    // 3. Products
+    const insertProd = tx.prepare(`
+      INSERT INTO products (
+        barcode, name, category_id, brand_id, unit, purchase_price, selling_price,
+        wholesale_price, min_price, stock_quantity, min_stock_alert, is_active
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    const insertUnit = tx.prepare(`
+      INSERT INTO product_units (product_id, unit_name, conversion_factor, selling_price, barcode)
+      VALUES (?, ?, ?, ?, ?)
+    `);
+
+    for (const item of catalog.products) {
+      const categoryId = catMap.get(item.category) || null;
+      const brandId = (item.brand && brandMap.get(item.brand)) || null;
+
+      const res = await insertProd.run(
+        item.barcode,
+        item.name,
+        categoryId,
+        brandId,
+        item.unit || 'قطعة',
+        item.purchase_price || 0,
+        item.selling_price || 0,
+        item.wholesale_price || item.selling_price,
+        item.min_price || item.selling_price,
+        0, // Stock standing ready for inventory count
+        item.min_stock_alert || 5,
+        1
+      );
+
+      const productId = res.lastInsertRowid;
+
+      if (item.units && Array.isArray(item.units)) {
+        for (const u of item.units) {
+          await insertUnit.run(productId, u.unit_name, u.conversion_factor, u.selling_price, u.barcode || null);
+        }
+      }
+    }
+  });
+
+  console.log(`✅ Successfully seeded ${catalog.products.length} Egyptian supermarket products with international barcodes ready with 0 stock!`);
+}
+
+async function seedDatabase() {
+  await seedBase();
+  await seedEgyptianProducts();
 }
 
 if (require.main === module) {
   seedDatabase().then(() => {
-    console.log('Seed finished.');
+    console.log('Seed finished successfully.');
     process.exit(0);
   }).catch(err => {
     console.error('Seed error:', err);
@@ -134,4 +224,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { seedDatabase };
+module.exports = { seedDatabase, seedEgyptianProducts };
