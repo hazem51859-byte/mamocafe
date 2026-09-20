@@ -4,6 +4,22 @@ const { db } = require('../db');
 const { authenticateToken, requirePermission } = require('../middleware/auth');
 const { logAudit } = require('../middleware/audit');
 
+// ALL /api/products/seed-catalog - Force seed/sync Egyptian supermarket catalog (183+ items)
+router.all('/seed-catalog', async (req, res) => {
+  try {
+    const { seedEgyptianProducts } = require('../seed');
+    const result = await seedEgyptianProducts(true);
+    res.json({
+      success: true,
+      message: 'تمت زراعة وتحديث المنتجات المصرية بنجاح في قاعدة البيانات',
+      result
+    });
+  } catch (err) {
+    console.error('Error seeding catalog via endpoint:', err);
+    res.status(500).json({ error: 'فشل استيراد الكتالوج: ' + err.message });
+  }
+});
+
 // GET /api/products - List products with rich filtering
 router.get('/', authenticateToken, async (req, res) => {
   try {
@@ -154,6 +170,11 @@ router.get('/', authenticateToken, async (req, res) => {
 
 // GET /api/products/:id - Single product with units
 router.get('/:id', authenticateToken, async (req, res) => {
+  const prodId = parseInt(req.params.id, 10);
+  if (isNaN(prodId)) {
+    return res.status(400).json({ error: 'معرف المنتج غير صالح' });
+  }
+
   try {
     const product = await db.prepare(`
       SELECT p.*, c.name as category_name, b.name as brand_name, s.name as supplier_name
@@ -162,7 +183,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
       LEFT JOIN brands b ON p.brand_id = b.id
       LEFT JOIN suppliers s ON p.supplier_id = s.id
       WHERE p.id = ?
-    `).get(req.params.id);
+    `).get(prodId);
 
     if (!product) {
       return res.status(404).json({ error: 'المنتج غير موجود' });

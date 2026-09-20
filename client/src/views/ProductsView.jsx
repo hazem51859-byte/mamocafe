@@ -14,7 +14,8 @@ import {
   Coins,
   ShoppingCart,
   TrendingUp,
-  Boxes
+  Boxes,
+  DownloadCloud
 } from 'lucide-react';
 import { api } from '../services/api';
 import DataTable from '../components/DataTable';
@@ -211,6 +212,33 @@ export default function ProductsView({ currentUser }) {
       loadProducts();
     } catch (err) {
       alert(err.message || 'فشل تعديل الرصيد');
+    }
+  };
+
+  const [seedingCatalog, setSeedingCatalog] = useState(false);
+
+  const handleSeedCatalog = async () => {
+    if (!window.confirm('هل تريد استيراد كتالوج المنتجات المصرية القياسي (183 منتجاً بالسجاير والباركود الدولي برصيد صفر للبدء بالجرد)؟')) {
+      return;
+    }
+    setSeedingCatalog(true);
+    try {
+      const res = await api.post('/products/seed-catalog');
+      alert(res.message || 'تمت زراعة وتحديث المنتجات بنجاح!');
+      await loadProducts();
+      await loadMeta();
+    } catch (err) {
+      console.error('Seed catalog error:', err);
+      try {
+        const getRes = await api.get('/products/seed-catalog');
+        alert(getRes.message || 'تمت زراعة وتحديث المنتجات بنجاح!');
+        await loadProducts();
+        await loadMeta();
+      } catch (e) {
+        alert('فشل استيراد الكتالوج: ' + (err.message || e.message));
+      }
+    } finally {
+      setSeedingCatalog(false);
     }
   };
 
@@ -651,6 +679,27 @@ export default function ProductsView({ currentUser }) {
         </div>
 
         <div style={{ display: 'flex', gap: '6px' }}>
+          {currentUser?.role !== 'cashier' && (
+            <button
+              className="btn btn-sm"
+              style={{
+                background: '#047857',
+                color: '#ffffff',
+                border: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                fontWeight: 600,
+                padding: '4px 10px'
+              }}
+              disabled={seedingCatalog}
+              onClick={handleSeedCatalog}
+              title="استيراد وتحديث 183 منتج مصري متكامل بباركوداتها الدولية"
+            >
+              <DownloadCloud size={14} />
+              <span>{seedingCatalog ? 'جاري الاستيراد...' : 'استيراد الكتالوج المصري (183 صنف)'}</span>
+            </button>
+          )}
           <button className="btn btn-sm" onClick={loadProducts}>
             <RefreshCw size={13} />
             <span>تحديث</span>
@@ -663,6 +712,34 @@ export default function ProductsView({ currentUser }) {
           )}
         </div>
       </div>
+
+      {/* Empty State Seed Banner */}
+      {products.length === 0 && !loading && !search && !selectedCategory && currentUser?.role !== 'cashier' && (
+        <div style={{
+          background: 'linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%)',
+          border: '1.5px dashed #059669',
+          borderRadius: '8px',
+          padding: '24px 20px',
+          textAlign: 'center',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.03)'
+        }}>
+          <h3 style={{ color: '#065f46', marginBottom: '8px', fontSize: '17px', fontWeight: 800 }}>
+            🎉 قاعدة البيانات لا تحتوي على منتجات حتى الآن!
+          </h3>
+          <p style={{ color: '#047857', fontSize: '13px', marginBottom: '16px', maxWidth: '650px', margin: '0 auto 16px auto', lineHeight: '1.6' }}>
+            اضغط على الزر التالي لاستيراد وتفعيل <strong>183 منتجاً مصرياً قياسياً</strong> (يشمل كافة أنواع السجائر: كليوباترا، مارلبورو، إل إم، وينستون، ميريت، والألبان، والمشروبات، والشاي، والزيوت، والمنظفات) بباركوداتها الدولية وبكمية صفر (0) لتكون جاهزة للجرد فوراً.
+          </p>
+          <button
+            className="btn btn-primary"
+            style={{ padding: '10px 24px', fontSize: '14px', fontWeight: 700, background: '#059669', borderColor: '#059669', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+            disabled={seedingCatalog}
+            onClick={handleSeedCatalog}
+          >
+            <DownloadCloud size={18} />
+            <span>{seedingCatalog ? 'جاري زراعة المنتجات على السيرفر...' : '🚀 استيراد كل المنتجات المصرية بباركوداتها الدولية الآن'}</span>
+          </button>
+        </div>
+      )}
 
       {/* Main Table */}
       <DataTable

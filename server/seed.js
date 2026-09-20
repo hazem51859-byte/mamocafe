@@ -3,13 +3,13 @@ const { db } = require('./db');
 const catalog = require('./data/egyptian_catalog');
 
 async function seedBase() {
-  console.log('Checking database seed status...');
+  console.log('Checking base seed status...');
 
   // Check if already seeded with users
   const userCountRes = await db.prepare('SELECT COUNT(*) as count FROM users').get();
   const userCount = userCountRes ? parseInt(userCountRes.count) : 0;
   if (userCount > 0) {
-    console.log('Database already has users. Skipping initial user seed.');
+    console.log('Database already has users. Skipping base user seed.');
     return;
   }
 
@@ -129,84 +129,98 @@ async function seedBase() {
   console.log('✅ Base roles, admin user, units and settings seeded successfully!');
 }
 
-async function seedEgyptianProducts() {
+async function seedEgyptianProducts(force = false) {
   const prodCountRes = await db.prepare('SELECT COUNT(*) as count FROM products').get();
   const prodCount = prodCountRes ? parseInt(prodCountRes.count) : 0;
-  if (prodCount > 0) {
+  if (!force && prodCount >= catalog.products.length) {
     console.log(`Database already has ${prodCount} products. Skipping product catalog seed.`);
-    return;
+    return { skipped: true, total: prodCount };
   }
 
-  console.log('📦 Seeding standard Egyptian supermarket catalog (180+ items including cigarettes & groceries)...');
+  console.log(`📦 Seeding/Syncing Egyptian supermarket catalog (${catalog.products.length} items)...`);
+
+  let insertedCount = 0;
 
   await db.transaction(async (tx) => {
-    // 1. Categories
+    // 1. Categories (Safe upsert)
     const catMap = new Map();
     for (const cat of catalog.categories) {
-      const existing = await tx.prepare('SELECT id FROM categories WHERE name = ?').get(cat.name);
-      if (existing) {
-        catMap.set(cat.name, existing.id);
-      } else {
-        const res = await tx.prepare('INSERT INTO categories (name, code, icon, sort_order) VALUES (?, ?, ?, ?)').run(cat.name, cat.code, cat.icon, cat.sort_order);
-        catMap.set(cat.name, res.lastInsertRowid);
+      let catRow = await tx.prepare('SELECT id FROM categories WHERE name = ?').get(cat.name);
+      if (!catRow) {
+        await tx.prepare('INSERT INTO categories (name, code, icon, sort_order) VALUES (?, ?, ?, ?) ON CONFLICT (name) DO NOTHING').run(cat.name, cat.code, cat.icon, cat.sort_order);
+        catRow = await tx.prepare('SELECT id FROM categories WHERE name = ?').get(cat.name);
+      }
+      if (catRow) {
+        catMap.set(cat.name, parseInt(catRow.id));
       }
     }
 
-    // 2. Brands
+    // 2. Brands (Safe upsert)
     const brandMap = new Map();
     for (const b of catalog.brands) {
-      const existing = await tx.prepare('SELECT id FROM brands WHERE name = ?').get(b);
-      if (existing) {
-        brandMap.set(b, existing.id);
-      } else {
-        const res = await tx.prepare('INSERT INTO brands (name) VALUES (?)').run(b);
-        brandMap.set(b, res.lastInsertRowid);
+      let brandRow = await tx.prepare('SELECT id FROM brands WHERE name = ?').get(b);
+      if (!brandRow) {
+        await tx.prepare('INSERT INTO brands (name) VALUES (?) ON CONFLICT (name) DO NOTHING').run(b);
+        brandRow = await tx.prepare('SELECT id FROM brands WHERE name = ?').get(b);
+      }
+      if (brandRow) {
+        brandMap.set(b, parseInt(brandRow.id));
       }
     }
 
-    // 3. Products
-    const insertProd = tx.prepare(`
-      INSERT INTO products (
-        barcode, name, category_id, brand_id, unit, purchase_price, selling_price,
-        wholesale_price, min_price, stock_quantity, min_stock_alert, is_active
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    const insertUnit = tx.prepare(`
-      INSERT INTO product_units (product_id, unit_name, conversion_factor, selling_price, barcode)
-      VALUES (?, ?, ?, ?, ?)
-    `);
-
+    // 3. Products (Safe upsert by barcode)
     for (const item of catalog.products) {
       const categoryId = catMap.get(item.category) || null;
       const brandId = (item.brand && brandMap.get(item.brand)) || null;
 
-      const res = await insertProd.run(
-        item.barcode,
-        item.name,
-        categoryId,
-        brandId,
-        item.unit || 'قطعة',
-        item.purchase_price || 0,
-        item.selling_price || 0,
-        item.wholesale_price || item.selling_price,
-        item.min_price || item.selling_price,
-        0, // Stock standing ready for inventory count
-        item.min_stock_alert || 5,
-        1
-      );
+      const existingProd = await tx.prepare('SELECT id FROM products WHERE barcode = ?').get(item.barcode);
+      let prodId;
 
-      const productId = res.lastInsertRowid;
+      if (!existingProd) {
+        const res = await tx.prepare(`
+          INSERT INTO products (
+            barcode, name, category_id, brand_id, unit, purchase_price, selling_price,
+            wholesale_price, min_price, stock_quantity, min_stock_alert, is_active
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(
+          item.barcode,
+          item.name,
+          categoryId,
+          brandId,
+          item.unit || 'قطعة',
+          item.purchase_price || 0,
+          item.selling_price || 0,
+          item.wholesale_price || item.selling_price,
+          item.min_price || item.selling_price,
+          0,
+          item.min_stock_alert || 5,
+          1
+        );
+        prodId = res.lastInsertRowid;
+        insertedCount++;
+      } else {
+        prodId = existingProd.id;
+      }
 
-      if (item.units && Array.isArray(item.units)) {
+      // 4. Product Units
+      if (item.units && Array.isArray(item.units) && prodId) {
         for (const u of item.units) {
-          await insertUnit.run(productId, u.unit_name, u.conversion_factor, u.selling_price, u.barcode || null);
+          const unitCheck = await tx.prepare('SELECT id FROM product_units WHERE product_id = ? AND unit_name = ?').get(prodId, u.unit_name);
+          if (!unitCheck) {
+            await tx.prepare(`
+              INSERT INTO product_units (product_id, unit_name, conversion_factor, selling_price, barcode)
+              VALUES (?, ?, ?, ?, ?)
+            `).run(prodId, u.unit_name, u.conversion_factor, u.selling_price, u.barcode || null);
+          }
         }
       }
     }
   });
 
-  console.log(`✅ Successfully seeded ${catalog.products.length} Egyptian supermarket products with international barcodes ready with 0 stock!`);
+  const finalCountRes = await db.prepare('SELECT COUNT(*) as count FROM products').get();
+  const finalCount = finalCountRes ? parseInt(finalCountRes.count) : 0;
+  console.log(`✅ Egyptian catalog seed finished: inserted ${insertedCount} new products. Total products in DB: ${finalCount}`);
+  return { success: true, inserted: insertedCount, total: finalCount };
 }
 
 async function seedDatabase() {
@@ -224,4 +238,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { seedDatabase, seedEgyptianProducts };
+module.exports = { seedDatabase, seedBase, seedEgyptianProducts };
