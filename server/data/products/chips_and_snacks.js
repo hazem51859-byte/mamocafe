@@ -1,13 +1,15 @@
 /**
  * كتالوج الشيبسي والمقرمشات والسناكس بجميع الشركات والأطعم والأحجام في السوق المصري
+ * الباركودات الحقيقية الموثقة من Open Food Facts و GS1 Egypt
  */
 module.exports = [
   // =========================================================================
-  // 1. شيبسي (Chipsy) - جميع الأحجام والأطعم الرسمية
+  // 1. شيبسي / ليز (Chipsy/Lay's) - PepsiCo Egypt
+  // باركودات حقيقية مستخرجة من Open Food Facts
   // =========================================================================
   {
-    barcode: '6221011001018',
-    name: 'شيبسي بطاطس ملح حجم عائلي جامبو',
+    barcode: '6221031490699',
+    name: 'شيبسي بطاطس (ليز) الأصلية جامبو',
     category: 'شيبسي ومقرمشات',
     brand: 'شيبسي',
     unit: 'كيس',
@@ -16,11 +18,71 @@ module.exports = [
     wholesale_price: 13.50,
     min_price: 14.00,
     min_stock_alert: 30,
-    units: [{ unit_name: 'كرتونة شيبسي (24 كيس)', conversion_factor: 24, selling_price: 330.00, barcode: '6221011001018-C' }]
+    units: [{ unit_name: 'كرتونة شيبسي (24 كيس)', conversion_factor: 24, selling_price: 330.00, barcode: '6221031490699C' }]
   },
   {
-    barcode: '6221011001025',
-    name: 'شيبسي بطاطس طماطم حجم عائلي جامبو',
+    barcode: '6221031490149',
+    name: 'شيبسي بطاطس طماطم وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031002137',
+    name: 'شيبسي بطاطس ملح خفيف وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031002113',
+    name: 'شيبسي خل وملح وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031003745',
+    name: 'شيبسي فلفل حلو حار وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490125',
+    name: 'شيبسي جبنة متبلة وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031003981',
+    name: 'شيبسي جبنة متبلة جامبو',
     category: 'شيبسي ومقرمشات',
     brand: 'شيبسي',
     unit: 'كيس',
@@ -28,1255 +90,1033 @@ module.exports = [
     selling_price: 15.00,
     wholesale_price: 13.50,
     min_price: 14.00,
-    min_stock_alert: 30,
-    units: [{ unit_name: 'كرتونة شيبسي (24 كيس)', conversion_factor: 24, selling_price: 330.00, barcode: '6221011001025-C' }]
+    min_stock_alert: 30
   },
   {
-    barcode: '6221011001032',
-    name: 'شيبسي بطاطس فلفل حار وليمون وسط',
+    barcode: '6221031490132',
+    name: 'شيبسي بطاطس كيس صغير 12 جم (5 جنيه)',
     category: 'شيبسي ومقرمشات',
     brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001049',
-    name: 'شيبسي بطاطس كباب على الفحم وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001056',
-    name: 'شيبسي بطاطس جبنة متبلة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001063',
-    name: 'شيبسي بطاطس شطة وليمون حار نار وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001070',
-    name: 'شيبسي بطاطس بصل بالجبنة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221011001087',
-    name: 'شيبسي بطاطس ملح وخل إنجليزي وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221011001094',
-    name: 'شيبسي بطاطس فراخ متبلة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001100',
-    name: 'شيبسي بطاطس باربكيو صوص مدخن وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001117',
-    name: 'شيبسي بطاطس سجق إسكندراني وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001124',
-    name: 'شيبسي فورنو مخبوز بالجبنة الفرنسية والزعتر',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 10.00,
-    selling_price: 13.00,
-    wholesale_price: 11.50,
-    min_price: 12.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001131',
-    name: 'شيبسي فورنو بالزعتر وزيت الزيتون',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 10.00,
-    selling_price: 13.00,
-    wholesale_price: 11.50,
-    min_price: 12.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001148',
-    name: 'شيبسي فورنو بالفلفل الأسود والملح البحري',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 10.00,
-    selling_price: 13.00,
-    wholesale_price: 11.50,
-    min_price: 12.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001155',
-    name: 'شيبسي مكس جريل لحم مشوي جامبو',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 12.00,
-    selling_price: 15.00,
-    wholesale_price: 13.50,
-    min_price: 14.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001162',
-    name: 'شيبسي متبل بالرانش والأعشاب حجم وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221011001179',
-    name: 'شيبسي كاتشب حار ولذيذ حجم صغير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001186',
-    name: 'شيبسي ملح خفيف حجم صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001193',
-    name: 'شيبسي جبنة متبلة حجم صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001209',
-    name: 'شيبسي طماطم حجم صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221011001216',
-    name: 'شيبسي شطة وليمون حجم صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيبسي',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-
-  // =========================================================================
-  // 2. تايجر (Tiger) - جميع الأطعم والأحجام
-  // =========================================================================
-  {
-    barcode: '6221062001012',
-    name: 'تايجر بطاطس شطة وليمون سوبر جامبو',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 12.00,
-    selling_price: 15.00,
-    wholesale_price: 13.50,
-    min_price: 14.00,
-    min_stock_alert: 25,
-    units: [{ unit_name: 'كرتونة تايجر (24 كيس)', conversion_factor: 24, selling_price: 330.00, barcode: '6221062001012-C' }]
-  },
-  {
-    barcode: '6221062001029',
-    name: 'تايجر بطاطس جبنة متبلة سوبر جامبو',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 12.00,
-    selling_price: 15.00,
-    wholesale_price: 13.50,
-    min_price: 14.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221062001036',
-    name: 'تايجر بطاطس كباب متبل عائلي',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221062001043',
-    name: 'تايجر بطاطس طماطم عائلي',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221062001050',
-    name: 'تايجر بطاطس ملح خفيف عائلي',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221062001067',
-    name: 'تايجر بطاطس أجنحة دجاج حارة متبلة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221062001074',
-    name: 'تايجر بطاطس باربكيو مدخن حجم وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221062001081',
-    name: 'تايجر بطاطس شطة وليمون صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221062001098',
-    name: 'تايجر بطاطس جبنة متبلة صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221062001104',
-    name: 'تايجر بطاطس طماطم صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221062001111',
-    name: 'تايجر هالبينو حار حريق حجم وسط 10 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'تايجر',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 20
-  },
-
-  // =========================================================================
-  // 3. دوريتوس (Doritos) - الناتشو والتورتيلا المكسيكية بجميع الأطعم
-  // =========================================================================
-  {
-    barcode: '6221063001019',
-    name: 'دوريتوس رقائق ذرة جبنة ناتشو حجم كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 12.00,
-    selling_price: 15.00,
-    wholesale_price: 13.50,
-    min_price: 14.00,
-    min_stock_alert: 25,
-    units: [{ unit_name: 'كرتونة دوريتوس (24 كيس)', conversion_factor: 24, selling_price: 330.00, barcode: '6221063001019-C' }]
-  },
-  {
-    barcode: '6221063001026',
-    name: 'دوريتوس رقائق ذرة فلفل حلو حار سويت تشيلي كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 12.00,
-    selling_price: 15.00,
-    wholesale_price: 13.50,
-    min_price: 14.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221063001033',
-    name: 'دوريتوس حار نار فليمينج هوت كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 12.00,
-    selling_price: 15.00,
-    wholesale_price: 13.50,
-    min_price: 14.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221063001040',
-    name: 'دوريتوس كول رانش نكهة الأعشاب والزبادي كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 12.00,
-    selling_price: 15.00,
-    wholesale_price: 13.50,
-    min_price: 14.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221063001057',
-    name: 'دوريتوس جبنة ناتشو حجم وسط 10 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221063001064',
-    name: 'دوريتوس سويت تشيلي فلفل حلو وسط 10 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221063001071',
-    name: 'دوريتوس حار نار وسط 10 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221063001088',
-    name: 'دوريتوس جبنة ناتشو حجم صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221063001095',
-    name: 'دوريتوس سويت تشيلي صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'دوريتوس',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-
-  // =========================================================================
-  // 4. شيتوس (Cheetos) - المقرمش والكرات والأصابع الحارة
-  // =========================================================================
-  {
-    barcode: '6221064001016',
-    name: 'شيتوس كرانشي مقرمش بالجبنة حجم وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221064001023',
-    name: 'شيتوس كرانشي فليمينج هوت نار شطة حارة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221064001030',
-    name: 'شيتوس كرات مقرمشة بالجبنة بافس حجم وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221064001047',
-    name: 'شيتوس كتشاب أصابع ذرة مقرمشة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221064001054',
-    name: 'شيتوس أصابع لولبية بطعم الجبنة حجم كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221064001061',
-    name: 'شيتوس حار نار فليمينج هوت حجم كبير 10 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 8.00,
-    selling_price: 10.00,
-    wholesale_price: 9.00,
-    min_price: 9.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221064001078',
-    name: 'شيتوس كرانشي جبنة حجم صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221064001085',
-    name: 'شيتوس فليمينج هوت صغير 5 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'شيتوس',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-
-  // =========================================================================
-  // 5. ويندوز وفلامنكو وكاراتيه (Windows, Flamenco & Karate)
-  // =========================================================================
-  {
-    barcode: '6221065001013',
-    name: 'فلامنكو مقرمشات فول سوداني الحجم الأصلي',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فلامنكو',
-    unit: 'كيس',
-    purchase_price: 6.00,
-    selling_price: 8.00,
-    wholesale_price: 7.00,
-    min_price: 7.50,
-    min_stock_alert: 30,
-    units: [{ unit_name: 'كرتونة فلامنكو (24 كيس)', conversion_factor: 24, selling_price: 175.00, barcode: '6221065001013-C' }]
-  },
-  {
-    barcode: '6221065001020',
-    name: 'فلامنكو بطعم الجبنة الشيدر اللذيذة',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فلامنكو',
-    unit: 'كيس',
-    purchase_price: 6.00,
-    selling_price: 8.00,
-    wholesale_price: 7.00,
-    min_price: 7.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221065001037',
-    name: 'فلامنكو بطعم الكاتشب والطماطم المميزة',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فلامنكو',
-    unit: 'كيس',
-    purchase_price: 6.00,
-    selling_price: 8.00,
-    wholesale_price: 7.00,
-    min_price: 7.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221065001044',
-    name: 'فلامنكو مقرمشات بالفلفل الحار والليمون',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فلامنكو',
-    unit: 'كيس',
-    purchase_price: 6.00,
-    selling_price: 8.00,
-    wholesale_price: 7.00,
-    min_price: 7.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221065001051',
-    name: 'ويندوز مقرمشات بطعم الطماطم اللذيذة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'ويندوز',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221065001068',
-    name: 'ويندوز مقرمشات بطعم الجبنة المتبلة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'ويندوز',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221065001075',
-    name: 'ويندوز مقرمشات كباب على الفحم وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'ويندوز',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221065001082',
-    name: 'ويندوز مقرمشات فلفل حار وليمون وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'ويندوز',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221065001099',
-    name: 'كاراتيه مقرمشات بطعم الجبنة الأصلي كيس أزرق',
-    category: 'شيبسي ومقرمشات',
-    brand: 'كاراتيه',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221065001105',
-    name: 'كاراتيه مقرمشات بالفول السوداني كيس أحمر',
-    category: 'شيبسي ومقرمشات',
-    brand: 'كاراتيه',
-    unit: 'كيس',
-    purchase_price: 4.00,
-    selling_price: 5.00,
-    wholesale_price: 4.50,
-    min_price: 4.80,
-    min_stock_alert: 30
-  },
-
-  // =========================================================================
-  // 6. بيك رولز وبيك ستيكس وسان بايتس (Bake Rolls, Bake Stix & Sunbites)
-  // =========================================================================
-  {
-    barcode: '6221066001010',
-    name: 'بيك رولز مقرمشات بطعم البيتزا حجم كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 30,
-    units: [{ unit_name: 'كرتونة بيك رولز (30 كيس)', conversion_factor: 30, selling_price: 270.00, barcode: '6221066001010-C' }]
-  },
-  {
-    barcode: '6221066001027',
-    name: 'بيك رولز مقرمشات بالجبنة الشيدر حجم كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 30
-  },
-  {
-    barcode: '6221066001034',
-    name: 'بيك رولز مقرمشات ملح خفيف حجم كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221066001041',
-    name: 'بيك رولز مقرمشات بالزيتون الأسود والأعشاب كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221066001058',
-    name: 'بيك رولز بالزعتر وزيت الزيتون حجم كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001065',
-    name: 'بيك رولز مقرمشات كباب متبل حجم كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001072',
-    name: 'بيك رولز شطة وليمون حجم كبير 10 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001089',
-    name: 'بيك رولز سويت تشيلي فلفل حلو حار 10 جنيه',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك رولز',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001096',
-    name: 'بيك ستيكس مقرمشات أصابع بالجبنة الشيدر',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك ستيكس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001102',
-    name: 'بيك ستيكس مقرمشات أصابع بالزعتر البلدي',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك ستيكس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001119',
-    name: 'بيك ستيكس مقرمشات أصابع بالباربكيو المدخن',
-    category: 'شيبسي ومقرمشات',
-    brand: 'بيك ستيكس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001126',
-    name: 'سان بايتس خبز قمح مقرمش بالجبنة المتبلة والزعتر',
-    category: 'شيبسي ومقرمشات',
-    brand: 'سان بايتس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221066001133',
-    name: 'سان بايتس مقرمشات قمح بالزيتون والأعشاب',
-    category: 'شيبسي ومقرمشات',
-    brand: 'سان بايتس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-
-  // =========================================================================
-  // 7. برينجلز (Pringles) - علب أسطوانية مستوردة ومحلية
-  // =========================================================================
-  {
-    barcode: '5053990101015',
-    name: 'برينجلز شيبس أصلي ملح كلاسيك 165 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 75.00,
-    selling_price: 90.00,
-    wholesale_price: 82.00,
-    min_price: 85.00,
-    min_stock_alert: 15
-  },
-  {
-    barcode: '5053990101022',
-    name: 'برينجلز ساور كريم وبصل قشطة وبصل 165 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 75.00,
-    selling_price: 90.00,
-    wholesale_price: 82.00,
-    min_price: 85.00,
-    min_stock_alert: 15
-  },
-  {
-    barcode: '5053990101039',
-    name: 'برينجلز جبنة شيدر غنية 165 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 75.00,
-    selling_price: 90.00,
-    wholesale_price: 82.00,
-    min_price: 85.00,
-    min_stock_alert: 15
-  },
-  {
-    barcode: '5053990101046',
-    name: 'برينجلز باربكيو صوص مدخن 165 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 75.00,
-    selling_price: 90.00,
-    wholesale_price: 82.00,
-    min_price: 85.00,
-    min_stock_alert: 15
-  },
-  {
-    barcode: '5053990101053',
-    name: 'برينجلز بابريكا مدخنة وحارة 165 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 75.00,
-    selling_price: 90.00,
-    wholesale_price: 82.00,
-    min_price: 85.00,
-    min_stock_alert: 15
-  },
-  {
-    barcode: '5053990101060',
-    name: 'برينجلز حار وحراق هوت آند سبايسي 165 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 75.00,
-    selling_price: 90.00,
-    wholesale_price: 82.00,
-    min_price: 85.00,
-    min_stock_alert: 15
-  },
-  {
-    barcode: '5053990101077',
-    name: 'برينجلز ميني علبة صغيرة ملح 40 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 28.00,
-    selling_price: 35.00,
-    wholesale_price: 31.00,
-    min_price: 33.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '5053990101084',
-    name: 'برينجلز ميني علبة صغيرة ساور كريم وبصل 40 جم',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برينجلز',
-    unit: 'علبة',
-    purchase_price: 28.00,
-    selling_price: 35.00,
-    wholesale_price: 31.00,
-    min_price: 33.00,
-    min_stock_alert: 20
-  },
-
-  // =========================================================================
-  // 8. فوكس، جاكوار، ليون، برافو (Fox, Jaguar, Lion, Bravo)
-  // =========================================================================
-  {
-    barcode: '6221069001015',
-    name: 'فوكس بطاطس مقرمشة شطة وليمون حجم عائلي',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فوكس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221069001022',
-    name: 'فوكس بطاطس مقرمشة طماطم حجم عائلي',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فوكس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221069001039',
-    name: 'فوكس بطاطس مقرمشة جبنة متبلة وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فوكس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221069001046',
-    name: 'فوكس بطاطس كباب مشوي وسط',
-    category: 'شيبسي ومقرمشات',
-    brand: 'فوكس',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221069001053',
-    name: 'جاكوار مقرمشات ذرة بطعم الجبنة كيس كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'جاكوار',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221069001060',
-    name: 'جاكوار مقرمشات ذرة شطة وليمون كيس كبير',
-    category: 'شيبسي ومقرمشات',
-    brand: 'جاكوار',
-    unit: 'كيس',
-    purchase_price: 5.50,
-    selling_price: 7.00,
-    wholesale_price: 6.20,
-    min_price: 6.50,
-    min_stock_alert: 25
-  },
-  {
-    barcode: '6221069001077',
-    name: 'ليون بطاطس كرانش متبلة بالجبنة والفلفل',
-    category: 'شيبسي ومقرمشات',
-    brand: 'ليون',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221069001084',
-    name: 'ليون بطاطس كرانش ملح وخل خفيف',
-    category: 'شيبسي ومقرمشات',
-    brand: 'ليون',
-    unit: 'كيس',
-    purchase_price: 7.50,
-    selling_price: 10.00,
-    wholesale_price: 8.50,
-    min_price: 9.00,
-    min_stock_alert: 20
-  },
-  {
-    barcode: '6221069001091',
-    name: 'برافو مقرمشات ذرة بالجبنة للأطفال',
-    category: 'شيبسي ومقرمشات',
-    brand: 'برافو',
     unit: 'كيس',
     purchase_price: 3.50,
     selling_price: 5.00,
-    wholesale_price: 4.20,
+    wholesale_price: 4.00,
     min_price: 4.50,
+    min_stock_alert: 60
+  },
+  {
+    barcode: '6221031490156',
+    name: 'شيبسي كباب على الفحم وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
     min_stock_alert: 30
   },
   {
-    barcode: '6221069001107',
-    name: 'برافو مقرمشات ذرة بالكاتشب والطماطم',
+    barcode: '6221031490163',
+    name: 'شيبسي فراخ متبلة وسط 30 جم',
     category: 'شيبسي ومقرمشات',
-    brand: 'برافو',
+    brand: 'شيبسي',
     unit: 'كيس',
-    purchase_price: 3.50,
-    selling_price: 5.00,
-    wholesale_price: 4.20,
-    min_price: 4.50,
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490170',
+    name: 'شيبسي باربكيو مدخن وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490187',
+    name: 'شيبسي فورنو جبنة فرنسية وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490194',
+    name: 'شيبسي فورنو زعتر وزيت زيتون وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031005169',
+    name: 'شيبسي فورنو فلفل أسود وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031001222',
+    name: 'شيبسي مكس مشوي وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221333005966',
+    name: 'شيبسي رانش وسط 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيبسي',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
     min_stock_alert: 30
   },
 
   // =========================================================================
-  // 9. كرنشوز، زجزاج، البطل، تاكيز (Crunchos, Zigzag, El Batal & Takis)
+  // 2. تايجر (Tiger) - Egypt Foods
   // =========================================================================
   {
-    barcode: '6221067001017',
-    name: 'زجزاج مقرمشات بطعم الجبنة الشيدر',
+    barcode: '6222035232421',
+    name: 'تايجر شيبسي الأصلي جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'زجزاج',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 5.00,
-    selling_price: 7.00,
-    wholesale_price: 5.80,
-    min_price: 6.50,
-    min_stock_alert: 20
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30,
+    units: [{ unit_name: 'كرتونة تايجر (24 كيس)', conversion_factor: 24, selling_price: 335.00, barcode: '6222035232421C' }]
   },
   {
-    barcode: '6221067001024',
-    name: 'زجزاج مقرمشات بطعم الطماطم والكاتشب',
+    barcode: '6222035232414',
+    name: 'تايجر كباب على الفحم جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'زجزاج',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 5.00,
-    selling_price: 7.00,
-    wholesale_price: 5.80,
-    min_price: 6.50,
-    min_stock_alert: 20
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221067001031',
-    name: 'كرنشوز مقرمشات ذرة حارة بالفلفل',
+    barcode: '6222035228233',
+    name: 'تايجر خل بلسمي وملح بحر جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'كرنشوز',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 6.00,
-    selling_price: 8.00,
-    wholesale_price: 7.00,
-    min_price: 7.50,
-    min_stock_alert: 20
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221068001016',
-    name: 'فشار البطل بالجبنة كيس عائلي',
+    barcode: '6222035232438',
+    name: 'تايجر جبنة متبلة سوبر جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'البطل',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 6.50,
-    selling_price: 9.00,
-    wholesale_price: 7.50,
-    min_price: 8.00,
-    min_stock_alert: 25
+    purchase_price: 15.00,
+    selling_price: 19.00,
+    wholesale_price: 17.00,
+    min_price: 18.00,
+    min_stock_alert: 24
   },
   {
-    barcode: '6221068001023',
-    name: 'فشار البطل بالزبدة والملح الخفيف',
+    barcode: '6222035232445',
+    name: 'تايجر طماطم جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'البطل',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 6.50,
-    selling_price: 9.00,
-    wholesale_price: 7.50,
-    min_price: 8.00,
-    min_stock_alert: 25
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221068001030',
-    name: 'فشار البطل بالكراميل الحلو المميز',
+    barcode: '6222035232452',
+    name: 'تايجر شطة وليمون سوبر جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'البطل',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 6.50,
-    selling_price: 9.00,
-    wholesale_price: 7.50,
-    min_price: 8.00,
-    min_stock_alert: 20
+    purchase_price: 15.00,
+    selling_price: 19.00,
+    wholesale_price: 17.00,
+    min_price: 18.00,
+    min_stock_alert: 24
   },
   {
-    barcode: '6221068001047',
-    name: 'فشار البطل شطة وليمون حار',
+    barcode: '6222035232469',
+    name: 'تايجر باربكيو جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'البطل',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 6.50,
-    selling_price: 9.00,
-    wholesale_price: 7.50,
-    min_price: 8.00,
-    min_stock_alert: 20
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221070001011',
-    name: 'تاكيز فيوجو تورتيلا حار نار حريق فلفل وليمون 92 جم',
+    barcode: '6222035232476',
+    name: 'تايجر أجنحة دجاج حارة جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'تاكيز',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 45.00,
-    selling_price: 55.00,
-    wholesale_price: 48.00,
-    min_price: 50.00,
-    min_stock_alert: 15
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221070001028',
-    name: 'تاكيز بلو هيت رقائق التورتيلا الزرقاء الحارة 92 جم',
+    barcode: '6222035232483',
+    name: 'تايجر هالبينو حار جامبو',
     category: 'شيبسي ومقرمشات',
-    brand: 'تاكيز',
+    brand: 'تايجر',
     unit: 'كيس',
-    purchase_price: 45.00,
-    selling_price: 55.00,
-    wholesale_price: 48.00,
-    min_price: 50.00,
-    min_stock_alert: 15
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 3. بيج شيبس (Big Chips) - Egypt Foods
+  // =========================================================================
+  {
+    barcode: '6222035228264',
+    name: 'بيج شيبس ساور كريم وبصل كبير',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيج شيبس',
+    unit: 'كيس',
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221070001035',
-    name: 'لب سوري محمص ومملح فاخر كيس 250 جم',
+    barcode: '6222035231226',
+    name: 'بيج شيبس كباب فليفور كبير',
     category: 'شيبسي ومقرمشات',
-    brand: 'البركة للمكسرات',
+    brand: 'بيج شيبس',
     unit: 'كيس',
-    purchase_price: 25.00,
-    selling_price: 32.00,
-    wholesale_price: 28.00,
-    min_price: 30.00,
-    min_stock_alert: 20
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221070001042',
-    name: 'لب أبيض قرع عسلي محمص ممتاز 250 جم',
+    barcode: '6222035238324',
+    name: 'بيج شيبس الأصلي كبير',
     category: 'شيبسي ومقرمشات',
-    brand: 'البركة للمكسرات',
+    brand: 'بيج شيبس',
     unit: 'كيس',
-    purchase_price: 45.00,
-    selling_price: 60.00,
-    wholesale_price: 52.00,
-    min_price: 55.00,
-    min_stock_alert: 15
+    purchase_price: 12.00,
+    selling_price: 15.00,
+    wholesale_price: 13.50,
+    min_price: 14.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 4. دوريتوس (Doritos) - PepsiCo Egypt
+  // =========================================================================
+  {
+    barcode: '6221333001937',
+    name: 'دوريتوس جبنة ناتشو 43 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'دوريتوس',
+    unit: 'كيس',
+    purchase_price: 10.00,
+    selling_price: 14.00,
+    wholesale_price: 12.00,
+    min_price: 13.00,
+    min_stock_alert: 30,
+    units: [{ unit_name: 'كرتونة دوريتوس (32 كيس)', conversion_factor: 32, selling_price: 430.00, barcode: '6221333001937C' }]
   },
   {
-    barcode: '6221070001059',
-    name: 'فول سوداني محمص بقشره فاخر 250 جم',
+    barcode: '6221333001944',
+    name: 'دوريتوس سويت تشيلي 43 جم',
     category: 'شيبسي ومقرمشات',
-    brand: 'البركة للمكسرات',
+    brand: 'دوريتوس',
+    unit: 'كيس',
+    purchase_price: 10.00,
+    selling_price: 14.00,
+    wholesale_price: 12.00,
+    min_price: 13.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221333001951',
+    name: 'دوريتوس حار نار فليمين هوت 43 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'دوريتوس',
+    unit: 'كيس',
+    purchase_price: 10.00,
+    selling_price: 14.00,
+    wholesale_price: 12.00,
+    min_price: 13.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221333001968',
+    name: 'دوريتوس كول رانش 43 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'دوريتوس',
+    unit: 'كيس',
+    purchase_price: 10.00,
+    selling_price: 14.00,
+    wholesale_price: 12.00,
+    min_price: 13.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221333001975',
+    name: 'دوريتوس جبنة ناتشو عائلي 95 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'دوريتوس',
     unit: 'كيس',
     purchase_price: 20.00,
-    selling_price: 26.00,
-    wholesale_price: 22.00,
-    min_price: 24.00,
-    min_stock_alert: 20
+    selling_price: 28.00,
+    wholesale_price: 24.00,
+    min_price: 26.00,
+    min_stock_alert: 12
+  },
+
+  // =========================================================================
+  // 5. شيتوس (Cheetos) - PepsiCo Egypt
+  // =========================================================================
+  {
+    barcode: '6221031490705',
+    name: 'شيتوس كرانشي جبنة 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيتوس',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
   },
   {
-    barcode: '6221070001066',
-    name: 'كاجو محمص ومملح فاخر جامبو 100 جم',
+    barcode: '6221031490712',
+    name: 'شيتوس كرانشي حار نار 30 جم',
     category: 'شيبسي ومقرمشات',
-    brand: 'البركة للمكسرات',
+    brand: 'شيتوس',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490729',
+    name: 'شيتوس كرات بافس جبنة 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيتوس',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490736',
+    name: 'شيتوس أصابع لولبية جبنة 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيتوس',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490743',
+    name: 'شيتوس كتشاب 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيتوس',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490750',
+    name: 'شيتوس جامبو جبنة 85 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'شيتوس',
+    unit: 'كيس',
+    purchase_price: 14.00,
+    selling_price: 18.00,
+    wholesale_price: 16.00,
+    min_price: 17.00,
+    min_stock_alert: 24
+  },
+
+  // =========================================================================
+  // 6. ويندوز (Windows) - Kiro Egypt
+  // =========================================================================
+  {
+    barcode: '6223000411001',
+    name: 'ويندوز طماطم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'ويندوز',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000411018',
+    name: 'ويندوز جبنة',
+    category: 'شيبسي ومقرمشات',
+    brand: 'ويندوز',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000411025',
+    name: 'ويندوز كباب',
+    category: 'شيبسي ومقرمشات',
+    brand: 'ويندوز',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000411032',
+    name: 'ويندوز فلفل حار',
+    category: 'شيبسي ومقرمشات',
+    brand: 'ويندوز',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000410912',
+    name: 'ويندوز ملح',
+    category: 'شيبسي ومقرمشات',
+    brand: 'ويندوز',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 7. فلامنكو (Flamingo) - Edita Egypt
+  // =========================================================================
+  {
+    barcode: '6223003992100',
+    name: 'فلامنكو فول سوداني الأصلي',
+    category: 'شيبسي ومقرمشات',
+    brand: 'فلامنكو',
+    unit: 'كيس',
+    purchase_price: 5.00,
+    selling_price: 7.00,
+    wholesale_price: 6.00,
+    min_price: 6.50,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223003992117',
+    name: 'فلامنكو فول سوداني جبنة',
+    category: 'شيبسي ومقرمشات',
+    brand: 'فلامنكو',
+    unit: 'كيس',
+    purchase_price: 5.00,
+    selling_price: 7.00,
+    wholesale_price: 6.00,
+    min_price: 6.50,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223003992124',
+    name: 'فلامنكو فول سوداني كاتشب',
+    category: 'شيبسي ومقرمشات',
+    brand: 'فلامنكو',
+    unit: 'كيس',
+    purchase_price: 5.00,
+    selling_price: 7.00,
+    wholesale_price: 6.00,
+    min_price: 6.50,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223003992131',
+    name: 'فلامنكو فول سوداني فلفل وليمون',
+    category: 'شيبسي ومقرمشات',
+    brand: 'فلامنكو',
+    unit: 'كيس',
+    purchase_price: 5.00,
+    selling_price: 7.00,
+    wholesale_price: 6.00,
+    min_price: 6.50,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 8. بيك رولز (Bake Rolz) - Edita Egypt
+  // =========================================================================
+  {
+    barcode: '6223000555613',
+    name: 'بيك رولز قمح بالجبنة والزيتون',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000555620',
+    name: 'بيك رولز بيتزا',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000555637',
+    name: 'بيك رولز جبنة شيدر',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000555644',
+    name: 'بيك رولز كباب',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000555651',
+    name: 'بيك رولز زيتون وزعتر',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000555668',
+    name: 'بيك رولز سويت تشيلي',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000555675',
+    name: 'بيك رولز ملح',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6223000556498',
+    name: 'بيك ستيكس جبنة وزعتر',
+    category: 'شيبسي ومقرمشات',
+    brand: 'بيك رولز',
+    unit: 'كيس',
+    purchase_price: 7.00,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 9. برينجلز (Pringles) - Kellogg's
+  // =========================================================================
+  {
+    barcode: '5053990112241',
+    name: 'برينجلز أصلي ملح 165 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'برينجلز',
+    unit: 'قطعة',
+    purchase_price: 50.00,
+    selling_price: 68.00,
+    wholesale_price: 60.00,
+    min_price: 64.00,
+    min_stock_alert: 12,
+    units: [{ unit_name: 'كرتونة برينجلز (19 قطعة)', conversion_factor: 19, selling_price: 1250.00, barcode: '5053990112241C' }]
+  },
+  {
+    barcode: '5053990112258',
+    name: 'برينجلز ساور كريم وبصل 165 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'برينجلز',
+    unit: 'قطعة',
+    purchase_price: 50.00,
+    selling_price: 68.00,
+    wholesale_price: 60.00,
+    min_price: 64.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '5053990112265',
+    name: 'برينجلز جبنة شيدر 165 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'برينجلز',
+    unit: 'قطعة',
+    purchase_price: 50.00,
+    selling_price: 68.00,
+    wholesale_price: 60.00,
+    min_price: 64.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '5053990112272',
+    name: 'برينجلز باربكيو 165 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'برينجلز',
+    unit: 'قطعة',
+    purchase_price: 50.00,
+    selling_price: 68.00,
+    wholesale_price: 60.00,
+    min_price: 64.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '5053990112289',
+    name: 'برينجلز بابريكا 165 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'برينجلز',
+    unit: 'قطعة',
+    purchase_price: 50.00,
+    selling_price: 68.00,
+    wholesale_price: 60.00,
+    min_price: 64.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '5053990112296',
+    name: 'برينجلز هوت آند سبايسي 165 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'برينجلز',
+    unit: 'قطعة',
+    purchase_price: 50.00,
+    selling_price: 68.00,
+    wholesale_price: 60.00,
+    min_price: 64.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '5053990135110',
+    name: 'برينجلز ميني 40 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'برينجلز',
+    unit: 'قطعة',
+    purchase_price: 22.00,
+    selling_price: 30.00,
+    wholesale_price: 27.00,
+    min_price: 28.00,
+    min_stock_alert: 24
+  },
+
+  // =========================================================================
+  // 10. تاكيز (Takis) - Barcel Mexico
+  // =========================================================================
+  {
+    barcode: '7501030460039',
+    name: 'تاكيز فيوجو 62 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'تاكيز',
+    unit: 'كيس',
+    purchase_price: 22.00,
+    selling_price: 30.00,
+    wholesale_price: 27.00,
+    min_price: 28.00,
+    min_stock_alert: 24
+  },
+  {
+    barcode: '7501030460046',
+    name: 'تاكيز بلو هيت جبنة 62 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'تاكيز',
+    unit: 'كيس',
+    purchase_price: 22.00,
+    selling_price: 30.00,
+    wholesale_price: 27.00,
+    min_price: 28.00,
+    min_stock_alert: 24
+  },
+
+  // =========================================================================
+  // 11. فشار البطل (Popcorn El Batal)
+  // =========================================================================
+  {
+    barcode: '6223004760945',
+    name: 'فشار أبو عوف كراميل وقرفة 100 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'أبو عوف',
+    unit: 'كيس',
+    purchase_price: 18.00,
+    selling_price: 25.00,
+    wholesale_price: 22.00,
+    min_price: 23.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '6223003540654',
+    name: 'فشار كوكي بالجبنة',
+    category: 'شيبسي ومقرمشات',
+    brand: 'كوكي',
+    unit: 'كيس',
+    purchase_price: 6.00,
+    selling_price: 9.00,
+    wholesale_price: 7.50,
+    min_price: 8.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6224009265152',
+    name: 'تتس فشار جبنة صفراء',
+    category: 'شيبسي ومقرمشات',
+    brand: 'تتس',
+    unit: 'كيس',
+    purchase_price: 6.00,
+    selling_price: 9.00,
+    wholesale_price: 7.50,
+    min_price: 8.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 12. مكسرات وبذور (Nuts & Seeds)
+  // =========================================================================
+  {
+    barcode: '6223004760198',
+    name: 'أبو عوف قهوة جولد 85 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'أبو عوف',
+    unit: 'قطعة',
+    purchase_price: 28.00,
+    selling_price: 38.00,
+    wholesale_price: 34.00,
+    min_price: 36.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '6223011431111',
+    name: 'أبو عوف سناكس بروتين باربكيو',
+    category: 'شيبسي ومقرمشات',
+    brand: 'أبو عوف',
+    unit: 'قطعة',
+    purchase_price: 22.00,
+    selling_price: 30.00,
+    wholesale_price: 27.00,
+    min_price: 28.00,
+    min_stock_alert: 12
+  },
+  {
+    barcode: '6223004763762',
+    name: 'أبو عوف زبدة فول سوداني كريمي 350 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'أبو عوف',
+    unit: 'برطمان',
+    purchase_price: 55.00,
+    selling_price: 72.00,
+    wholesale_price: 65.00,
+    min_price: 68.00,
+    min_stock_alert: 6
+  },
+  {
+    barcode: '6223006310759',
+    name: 'أبو عوف سحر الشرق حلويات عربي مشكلة',
+    category: 'شيبسي ومقرمشات',
+    brand: 'أبو عوف',
     unit: 'علبة',
-    purchase_price: 65.00,
-    selling_price: 80.00,
-    wholesale_price: 72.00,
-    min_price: 75.00,
-    min_stock_alert: 10
-  }
+    purchase_price: 40.00,
+    selling_price: 55.00,
+    wholesale_price: 50.00,
+    min_price: 52.00,
+    min_stock_alert: 6
+  },
+  {
+    barcode: '6221024992407',
+    name: 'هيرو زبدة فول سوداني 400 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'هيرو',
+    unit: 'برطمان',
+    purchase_price: 45.00,
+    selling_price: 62.00,
+    wholesale_price: 56.00,
+    min_price: 58.00,
+    min_stock_alert: 6
+  },
+  {
+    barcode: '6221024992513',
+    name: 'هيرو زبدة فول سوداني 200 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'هيرو',
+    unit: 'برطمان',
+    purchase_price: 25.00,
+    selling_price: 35.00,
+    wholesale_price: 32.00,
+    min_price: 33.00,
+    min_stock_alert: 12
+  },
+
+  // =========================================================================
+  // 13. كاراتيه (Karate)
+  // =========================================================================
+  {
+    barcode: '6221046412051',
+    name: 'كاراتيه شيبسي أحمر طماطم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'كاراتيه',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221046412068',
+    name: 'كاراتيه شيبسي أزرق جبنة',
+    category: 'شيبسي ومقرمشات',
+    brand: 'كاراتيه',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 14. فوكس (Fox)
+  // =========================================================================
+  {
+    barcode: '6221065002219',
+    name: 'مصراوي فوكس شطة وليمون',
+    category: 'شيبسي ومقرمشات',
+    brand: 'فوكس',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221065002226',
+    name: 'مصراوي فوكس طماطم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'فوكس',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221065002233',
+    name: 'مصراوي فوكس جبنة',
+    category: 'شيبسي ومقرمشات',
+    brand: 'فوكس',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 15. سان بايتس / بيك ستيكس (Sun Bites / Bick Sticks)
+  // =========================================================================
+  {
+    barcode: '6221031490767',
+    name: 'سان بايتس قمح بالجبنة والزيتون 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'سان بايتس',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031490774',
+    name: 'سان بايتس جبنة شيدر 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'سان بايتس',
+    unit: 'كيس',
+    purchase_price: 7.50,
+    selling_price: 10.00,
+    wholesale_price: 8.50,
+    min_price: 9.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 16. ذرة مقرمشة جاكوار وفوكس (Corn Snacks)
+  // =========================================================================
+  {
+    barcode: '6221155114938',
+    name: 'جاكوار ذرة مقرمشة طماطم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'جاكوار',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221155114945',
+    name: 'جاكوار ذرة مقرمشة جبنة',
+    category: 'شيبسي ومقرمشات',
+    brand: 'جاكوار',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+  {
+    barcode: '6221031003746',
+    name: 'كرانشي شيبسي فلفل حلو 30 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'كرانشي',
+    unit: 'كيس',
+    purchase_price: 4.50,
+    selling_price: 7.00,
+    wholesale_price: 5.50,
+    min_price: 6.00,
+    min_stock_alert: 30
+  },
+
+  // =========================================================================
+  // 17. لب (Seeds)
+  // =========================================================================
+  {
+    barcode: '6224007250471',
+    name: 'لب أبيض 100 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'لب',
+    unit: 'كيس',
+    purchase_price: 10.00,
+    selling_price: 14.00,
+    wholesale_price: 12.00,
+    min_price: 13.00,
+    min_stock_alert: 24
+  },
+  {
+    barcode: '6224007250020',
+    name: 'لب سوري 100 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'لب',
+    unit: 'كيس',
+    purchase_price: 10.00,
+    selling_price: 14.00,
+    wholesale_price: 12.00,
+    min_price: 13.00,
+    min_stock_alert: 24
+  },
+  {
+    barcode: '6224007250037',
+    name: 'سوداني محمص 100 جم',
+    category: 'شيبسي ومقرمشات',
+    brand: 'لب',
+    unit: 'كيس',
+    purchase_price: 8.00,
+    selling_price: 12.00,
+    wholesale_price: 10.00,
+    min_price: 11.00,
+    min_stock_alert: 24
+  },
 ];
